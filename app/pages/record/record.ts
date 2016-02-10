@@ -9,11 +9,11 @@ const START_RECORD_TEXT: string = 'Record';
 const START_UPLOAD_ICON: string = 'cloud-upload';
 const START_UPLOAD_TEXT: string = 'Upload';
 
-const STOP_RECORD_ICON: string = 'square';
-const STOP_RECORD_TEXT: string = 'Stop';
+const STOP_RECORD_ICON: string = 'pause';
+const STOP_RECORD_TEXT: string = 'Pause';
 
-const STOP_UPLOAD_ICON: string = 'pause';
-const STOP_UPLOAD_TEXT: string = 'Pause';
+const STOP_UPLOAD_ICON: string = 'square';
+const STOP_UPLOAD_TEXT: string = 'Stop';
 
 @Page({
     templateUrl: 'build/pages/record/record.html',
@@ -27,12 +27,12 @@ export class RecordPage {
     recordButtonText: string;
     uploadButtonIcon: string;
     uploadButtonText: string;
-
+    test: boolean;
     constructor(private app: IonicApp) {
         this.segment = 'record';
         this.tracks = [];
         this.recordingTime = "00:00:00:00";
-
+        this.test = null;
         // initialize state to not be recording
         this.stopRecord();
     }
