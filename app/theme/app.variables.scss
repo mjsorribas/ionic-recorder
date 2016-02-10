@@ -1,0 +1,68 @@
+// http://ionicframework.com/docs/v2/theming/
+
+
+// App Shared Variables
+// --------------------------------------------------
+// To customize the look and feel of this app, you can override
+// the Sass variables found in Ionic's source scss files. Setting
+// variables before Ionic's Sass will use these variables rather than
+// Ionic's default Sass variable values. App Shared Sass imports belong
+// in the app.core.scss file and not this file. Sass variables specific
+// to the mode belong in either the app.ios.scss or app.md.scss files.
+
+
+// App Shared Color Variables
+// --------------------------------------------------
+// It's highly recommended to change the default colors
+// to match your app's branding. Ionic uses a Sass map of
+// colors so you can add, rename and remove colors as needed.
+// The "primary" color is the only required color in the map.
+// Both iOS and MD colors can be further customized if colors
+// are different per mode.
+
+$colors: (
+    primary:            #387ef5,
+    secondary:          #32db64,
+    danger:             #f53d3d,
+    favorite:           #69BB7B,
+
+    dark:               black,
+    darkest-gray:       #333,
+    dark-gray:          #666,
+    gray:               #7ff,
+    light-gray:         #999,
+    lightest-gray:      #ccc,
+    light:              white,
+    
+    logo-red:           #b92025,
+    logo-orange:        #f27321
+);
+
+/*
+$searchbar-ios-input-search-icon-color: map-get($colors, light) !default;
+$searchbar-ios-input-clear-icon-color: map-get($colors, light) !default;
+
+// $text-color: white !default;
+$text-color: map-get($colors, light) !default;
+
+// $background-color: #222 !default;
+$background-color: map-get($colors, dark) !default;
+
+// toggle switches
+$toggle-ios-background-color-off:      map-get($colors, darkest-gray) !default;
+$toggle-ios-background-color-on:       map-get($colors, dark-gray) !default;
+$toggle-ios-handle-background-color:   map-get($colors, light-gray) !default;
+
+$toggle-md-track-background-color-off:   map-get($colors, darkest-gray) !default;
+$toggle-md-track-background-color-on:    map-get($colors, dark-gray) !default;
+
+$toggle-md-handle-background-color-on:   map-get($colors, light-gray) !default;
+$toggle-md-handle-background-color-off:   map-get($colors, dark-gray) !default;
+
+// these next 3 toolbar variables determine tabbar appearance as well:
+$toolbar-ios-border-color: map-get($colors, light-gray) !default;
+$toolbar-ios-active-color: white !default;
+$toolbar-ios-inactive-color: map-get($colors, dark-gray) !default;
+
+$tabbar-ios-background: $background-color !default;
+*/

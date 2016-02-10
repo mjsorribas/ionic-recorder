@@ -1,0 +1,45 @@
+<ion-navbar *navbar>
+    <button menuToggle>
+        <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-segment [(ngModel)]="segment" (change)="changeSegment()">
+        <ion-segment-button value="record">
+            Record
+        </ion-segment-button>
+        <ion-segment-button value="library">
+            Library
+        </ion-segment-button>
+    </ion-segment>
+</ion-navbar>
+
+<ion-content padding>
+    <div class="recording-time">{{recordingTime}}</div>
+    <vu-gauge bgcolor="#fff" width="100%" height="2.5em" nbars="55"></vu-gauge>
+    <slider min="0" max="100" value="20"></slider>
+
+    <div class="record-upload-buttons">
+        <button logo-red (click)="toggleRecord()">
+            <ion-col>
+                <ion-row>
+                    <ion-icon [name]="recordButtonIcon"></ion-icon>
+                </ion-row>
+                <ion-row class="vspace"></ion-row>
+                <ion-row class="button-text">
+                    <span>{{recordButtonText}}</span>
+                </ion-row>
+            </ion-col>
+        </button>
+        <button logo-orange id="uploadButton">
+            <ion-col>
+                <ion-row>
+                    <ion-icon [name]="uploadButtonIcon"></ion-icon>
+                </ion-row>
+                <ion-row class="vspace"></ion-row>
+                <ion-row class="button-text">
+                    <span>{{uploadButtonText}}</span>
+                </ion-row>
+            </ion-col>
+        </button>
+    </div>
+
+</ion-content>

@@ -1,0 +1,32 @@
+<ion-navbar *navbar>
+    <button menuToggle>
+        <ion-icon name="menu"></ion-icon>
+    </button>
+
+    <ion-segment [(ngModel)]="segment" (change)="changeSegment()">
+        <ion-segment-button value="record">
+            Record
+        </ion-segment-button>
+        <ion-segment-button value="library">
+            Library
+        </ion-segment-button>
+    </ion-segment>
+
+    <ion-buttons end>
+        <button (click)="presentFilter()">
+            <ion-icon ios="ios-funnel-outline" md="md-funnel"></ion-icon>
+        </button>
+    </ion-buttons>
+</ion-navbar>
+
+<ion-content class="library">
+
+    <ion-list-header [hidden]="items.length > 0">
+        No Results Found
+    </ion-list-header>
+
+    <ul>
+        <li *ngFor="#item of items">{{item}}</li>
+    </ul>
+
+</ion-content>
