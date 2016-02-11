@@ -13,34 +13,23 @@
 </ion-navbar>
 
 <ion-content padding>
-    <div class="recording-time">{{recordingTime}}</div>
-    <vu-gauge bgcolor="#fff" width="100%" height="2.5em" nbars="55"></vu-gauge>
-    <slider min="0" max="100" value="20"></slider>
-
+    <vu-gauge bgcolor="#fff" width="100%" height="2.5em" nbars="55">
+    </vu-gauge>
+    <slider min="0" max="100" value="20">
+    </slider>
+    <div class="recording-time">{{recordingTime}}
+    </div>
     <div class="record-upload-buttons">
-        <button logo-red (click)="toggleRecord()">
-            <ion-col>
-                <ion-row>
-                    <ion-icon [name]="recordButtonIcon"></ion-icon>
-                </ion-row>
-                <ion-row class="vspace"></ion-row>
-                <ion-row class="button-text">
-                    <span>{{recordButtonText}}</span>
-                </ion-row>
-            </ion-col>
+        <button dark-gray (click)="toggleRecord()">
+
+            <ion-icon [name]="recordButtonIcon"></ion-icon>
+
         </button>
-        <!--button logo-orange id="uploadButton" [attr.disabled]="false"-->
-        <!--button logo-orange [class.button-disabled]="true"-->
-        <button logo-orange disabled={{stopButtonDisabled}}>
-            <ion-col>
-                <ion-row>
-                    <ion-icon [name]="uploadButtonIcon"></ion-icon>
-                </ion-row>
-                <ion-row class="vspace"></ion-row>
-                <ion-row class="button-text">
-                    <span>{{uploadButtonText}}</span>
-                </ion-row>
-            </ion-col>
+
+        <button dark-gray disabled={{stopButtonDisabled}}>
+
+            <ion-icon [name]="uploadButtonIcon"></ion-icon>
+
         </button>
     </div>
 

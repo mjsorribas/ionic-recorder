@@ -1,3 +1,7 @@
+$button-font-size: 1.3em;
+$button-width: 5.8em;
+$button-height: $button-width;
+
 .recording-time {
     text-align: center;
     font-size: 2.3em;
@@ -7,19 +11,8 @@
 div.record-upload-buttons {
     text-align: center; // center-justify the two buttons in the page
     button {
-        font-size: 1.3em;
-        width: 5.8em;
-        height: 5.8em;
-        ion-icon, span {
-            margin: 0 auto; // center icon/text in each button
-        }
-
-        ion-icon {
-            padding-top: 45%; // push down the icon and text below it 
-        }
-        ion-row.vspace {
-            height: 0.7em;
-        }
-
+        font-size: $button-font-size;
+        width: $button-width;
+        height: $button-height;
     }
 }
