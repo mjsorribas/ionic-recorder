@@ -24,8 +24,8 @@ export class LibraryPage {
     placeholder: string;
     segment: string;
     constructor(private app: IonicApp, private nav: NavController) {
-        // this.wikipediaService = wikipediaService;
-        
+        console.log('constructor():LibraryPage');
+
         this.items = [];
 
         this.nResults = 0;
@@ -43,13 +43,6 @@ export class LibraryPage {
 
     onPageDidEnter() {
         this.app.setTitle('Library');
-    }
-
-    changeSegment() {
-        console.log('library:changeSegment() - segment='+this.segment);
-        if (this.segment !== 'library') {
-            this.app.getComponent('nav').setRoot(RecordPage);
-        }
     }
 
     updateLibrary() {
@@ -77,8 +70,10 @@ export class LibraryPage {
         this.nav.present(modal);
     }
 
-    goToRecordAudio() {
-        console.log('goToRecordAudio()');
-        this.app.getComponent('nav').push(RecordPage);
+    changeSegment() {
+        console.log('library:changeSegment() - segment=' + this.segment);
+        if (this.segment !== 'library') {
+            this.app.getComponent('nav').push(RecordPage);
+        }
     }
 }

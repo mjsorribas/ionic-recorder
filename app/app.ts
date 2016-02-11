@@ -1,6 +1,7 @@
 import {App, IonicApp, Platform} from 'ionic-framework/ionic';
-import {RecordPage} from './pages/record/record';
+import {TabsPage} from './pages/tabs/tabs';
 import {HSV} from './providers/colormap';
+import {AppState} from './providers/app-state';
 
 // https://angular.io/docs/ts/latest/api/core/Type-interface.html
 import {Type} from 'angular2/core';
@@ -8,14 +9,14 @@ import {Type} from 'angular2/core';
 
 @App({
     templateUrl: 'build/app.html',
-    providers: [HSV],
+    providers: [HSV, AppState],
     config: {
         backButtonText: ''
     }
 })
 class MyApp {
     // make HelloIonicPage the root (or first) page
-    rootPage: Type = RecordPage;
+    rootPage: Type = TabsPage;
     pages: Array<{ title: string, component: Type, hide: boolean }>;
 
     constructor(private app: IonicApp, private platform: Platform) {

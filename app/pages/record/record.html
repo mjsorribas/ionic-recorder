@@ -2,14 +2,9 @@
     <button menuToggle>
         <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-segment [(ngModel)]="segment" (change)="changeSegment()">
-        <ion-segment-button value="record">
-            Record
-        </ion-segment-button>
-        <ion-segment-button value="library">
-            Library
-        </ion-segment-button>
-    </ion-segment>
+    <ion-title>
+        Record
+    </ion-title>
 </ion-navbar>
 
 <ion-content padding>
@@ -20,16 +15,11 @@
     <div class="recording-time">{{recordingTime}}
     </div>
     <div class="record-upload-buttons">
-        <button dark-gray (click)="toggleRecord()">
-
+        <button logo-red class="record-button" (click)="toggleRecord()">
             <ion-icon [name]="recordButtonIcon"></ion-icon>
-
         </button>
-
-        <button dark-gray disabled={{stopButtonDisabled}}>
-
-            <ion-icon [name]="uploadButtonIcon"></ion-icon>
-
+        <button dark-gray disabled={{preStart}} (click)="stopRecord()">
+            <ion-icon name="square"></ion-icon>
         </button>
     </div>
 

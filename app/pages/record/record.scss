@@ -10,6 +10,9 @@ $button-height: $button-width;
 
 div.record-upload-buttons {
     text-align: center; // center-justify the two buttons in the page
+    button.record-button {
+         border-radius: 50%;
+    }
     button {
         font-size: $button-font-size;
         width: $button-width;

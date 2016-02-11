@@ -26,7 +26,9 @@ export class VuGauge {
     private ledWidth: string;
     private leds: Array<Object>;
 
-    constructor(private hsv: HSV) { }
+    constructor(private hsv: HSV) { 
+        console.log('constructor():VuGauge');
+    }
 
     ngOnInit() {
         let percentWidth: number = 100.0 / (2 * this.nbars - 1);

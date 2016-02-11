@@ -3,14 +3,9 @@
         <ion-icon name="menu"></ion-icon>
     </button>
 
-    <ion-segment [(ngModel)]="segment" (change)="changeSegment()">
-        <ion-segment-button value="record">
-            Record
-        </ion-segment-button>
-        <ion-segment-button value="library">
-            Library
-        </ion-segment-button>
-    </ion-segment>
+    <ion-title>
+        Library
+    </ion-title>
 
     <ion-buttons end>
         <button (click)="presentFilter()">
