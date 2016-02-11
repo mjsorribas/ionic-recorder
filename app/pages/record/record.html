@@ -15,7 +15,7 @@
         <button logo-red class="record-button" (click)="toggleRecord()">
             <ion-icon [name]="recordButtonIcon"></ion-icon>
         </button>
-        <button dark-gray disabled={{preStart}} (click)="stopRecord()">
+        <button dark-gray disabled={{notYetStarted}} (click)="stopRecord()">
             <ion-icon name="square"></ion-icon>
         </button>
     </div>

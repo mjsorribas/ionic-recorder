@@ -10,7 +10,7 @@ import {AppState} from '../../providers/app-state';
 })
 export class RecordPage {
     sliderValue: number;
-    preStart: boolean;
+    notYetStarted: boolean;
     recordingTime: string;
     recordButtonIcon: string;
     stopButtonIcon: string;
@@ -21,7 +21,7 @@ export class RecordPage {
 
         this.gain = 29;
         this.sliderValue = 33;
-        this.preStart = true;
+        this.notYetStarted = true;
         this.recordingTime = "00:00:00:00";
 
         this.stopRecord();
@@ -60,13 +60,13 @@ export class RecordPage {
 
     stopRecord() {
         console.log('stopRecord()');
-        this.preStart = true;
+        this.notYetStarted = true;
         this.recordButtonIcon = 'mic';
     }
 
     startRecord() {
         console.log('startRecord()');
-        this.preStart = null;
+        this.notYetStarted = null;
         this.recordButtonIcon = 'pause';
     }
 
