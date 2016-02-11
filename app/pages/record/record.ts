@@ -15,9 +15,11 @@ export class RecordPage {
     recordButtonIcon: string;
     stopButtonIcon: string;
     stopButtonDisabled: boolean;
+    gain: number;
     constructor() {
         console.log('constructor():RecordPage');
-
+        
+        this.gain = 29;
         this.sliderValue = 33;
         this.preStart = true;
         this.recordingTime = "00:00:00:00";
@@ -31,7 +33,10 @@ export class RecordPage {
     }
     
     onSliderChange($event) {
-        console.log('onSliderChange():value='+$event.target.value);
+        this.gain = 1.0*$event.target.value;
+
+        console.log('onSliderChange(): value = '+$event.target.value+
+        ', gain = '+this.gain);
     }
     
     isRecording() {
@@ -39,6 +44,7 @@ export class RecordPage {
     }
 
     toggleRecord() {
+        // this.gain = this.gain-1;
         // console.log('onRecord()');
         if (this.isRecording()) {
             console.log('--> is recording');
