@@ -1,15 +1,15 @@
 import {Page, Modal, Alert, NavController} from 'ionic-framework/ionic';
 import {LibraryPage} from '../library/library';
 import {VuGauge} from '../../components/vu-gauge/vu-gauge';
-import {Slider} from '../../components/slider/slider';
 import {AppState} from '../../providers/app-state';
 
 
 @Page({
     templateUrl: 'build/pages/record/record.html',
-    directives: [VuGauge, Slider]
+    directives: [VuGauge]
 })
 export class RecordPage {
+    sliderValue: number;
     preStart: boolean;
     recordingTime: string;
     recordButtonIcon: string;
@@ -18,12 +18,22 @@ export class RecordPage {
     constructor() {
         console.log('constructor():RecordPage');
 
+        this.sliderValue = 33;
         this.preStart = true;
         this.recordingTime = "00:00:00:00";
 
         this.stopRecord();
     }
-
+    
+    onSliderDrag($event) {
+        // console.log('onDrag()');
+        $event.stopPropagation();
+    }
+    
+    onSliderChange($event) {
+        console.log('onSliderChange():value='+$event.target.value);
+    }
+    
     isRecording() {
         return this.recordButtonIcon === 'pause';
     }

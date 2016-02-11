@@ -7,6 +7,11 @@ $button-height: $button-width;
     font-size: 2.3em;
 }
 
+input[type="range"] {
+    // display: block; to stack up vertically with other items
+    display: block;
+    width: 100%;    
+}
 
 div.record-upload-buttons {
     text-align: center; // center-justify the two buttons in the page
