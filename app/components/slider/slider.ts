@@ -18,7 +18,7 @@ export class Slider {
     private value: number;
 
     constructor() {
-        console.log('Slider:constructor()');
+        // console.log('Slider:constructor()');
     }
 
     onDrag($event) {
@@ -26,6 +26,6 @@ export class Slider {
     }
 
     ngOnInit() {
-        console.log('slider:ngOnInit()');
+        // console.log('slider:ngOnInit()');
     }
 }
