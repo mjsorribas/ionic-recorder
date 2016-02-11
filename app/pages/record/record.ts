@@ -18,7 +18,7 @@ export class RecordPage {
     gain: number;
     constructor() {
         console.log('constructor():RecordPage');
-        
+
         this.gain = 29;
         this.sliderValue = 33;
         this.preStart = true;
@@ -26,26 +26,23 @@ export class RecordPage {
 
         this.stopRecord();
     }
-    
+
     onSliderDrag($event) {
-        // console.log('onDrag()');
         $event.stopPropagation();
     }
-    
-    onSliderChange($event) {
-        this.gain = 1.0*$event.target.value;
 
-        console.log('onSliderChange(): value = '+$event.target.value+
-        ', gain = '+this.gain);
+    onSliderChange($event) {
+        this.gain = 1.0 * $event.target.value;
+
+        console.log('onSliderChange(): value = ' + $event.target.value +
+            ', gain = ' + this.gain);
     }
-    
+
     isRecording() {
         return this.recordButtonIcon === 'pause';
     }
 
     toggleRecord() {
-        // this.gain = this.gain-1;
-        // console.log('onRecord()');
         if (this.isRecording()) {
             console.log('--> is recording');
             this.pauseRecord();
@@ -55,10 +52,10 @@ export class RecordPage {
             this.startRecord();
         }
     }
-    
+
     pauseRecord() {
         console.log('stopRecord()');
-        this.recordButtonIcon = 'mic';        
+        this.recordButtonIcon = 'mic';
     }
 
     stopRecord() {

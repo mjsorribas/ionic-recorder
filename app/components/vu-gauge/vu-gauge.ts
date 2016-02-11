@@ -74,7 +74,7 @@ export class VuGauge {
                 fill = this.hsv.toRGB(120.0 - i * this.hStep, 1.0, 1.0);
             }
             else {
-                fill = this.hsv.toRGB(120.0 - i * this.hStep, 1.0, 0.3);                
+                fill = this.hsv.toRGB(120.0 - i * this.hStep, 1.0, 0.3);
             }
             this.leds[i].fill = fill;
         }

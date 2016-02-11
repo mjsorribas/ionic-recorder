@@ -25,7 +25,7 @@ class MyApp {
 
         // set our app's pages
         this.pages = [
-            { title: 'Login', component: null,  hide: true },
+            { title: 'Login', component: null, hide: true },
             { title: 'Signup', component: null, hide: true },
             { title: 'Logout', component: null, hide: true }
         ];
