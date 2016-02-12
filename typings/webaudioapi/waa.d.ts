@@ -9,8 +9,14 @@
 
 /// <reference path='../webrtc/MediaStream.d.ts' />
 
+declare var AudioContext: {
+    new(): AudioContext;
+    prototype: AudioContext;
+}
+
 declare var webkitAudioContext: {
-    new (): AudioContext;
+    new (): webkitAudioContext;
+    prototype: webkitAudioContext;
 }
 
 declare var webkitOfflineAudioContext: {
@@ -176,12 +182,20 @@ interface AudioContextConstructor {
     new(): AudioContext;
 }
 
+interface webkitAudioContextConstructor {
+    new(): webkitAudioContext;
+}
+
 interface Window {
-    AudioContext: AudioContextConstructor;
+    AudioContext?: AudioContextConstructor;
+    webkitAudioContext?: webkitAudioContextConstructor;
 }
 
 interface AudioContext {
     createMediaStreamSource(stream: MediaStream): MediaStreamAudioSourceNode;
+}
+
+interface webkitAudioContext extends AudioContext {
 }
 
 interface MediaStreamAudioSourceNode extends AudioNode {
@@ -202,4 +216,23 @@ interface AudioContext {
     suspend(): Promise<void>;
     resume(): Promise<void>;
     close(): Promise<void>;
+}
+
+interface webkitAudioContext {
+    suspend(): Promise<void>;
+    resume(): Promise<void>;
+    close(): Promise<void>;
+}
+
+
+interface MediaRecorder {
+    start(): void;
+    pause(): void;
+    resume(): void;
+    stop(): void; 
+}
+
+declare var MediaRecorder: {
+    new (stream: MediaStream): MediaRecorder;
+    prototype: MediaRecorder;
 }
