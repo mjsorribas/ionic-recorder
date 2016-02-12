@@ -6,7 +6,7 @@ export class WebAudioAPI {
     private audioContext: AudioContext;
     private stream: MediaStream;
     private mediaRecorder: MediaRecorder;
-    private blobs: Array<any>;
+    private chunks: Array<Float32Array>;
 
     constructor() {
         console.log('constructor():WebAudioApi');
@@ -15,65 +15,54 @@ export class WebAudioAPI {
 
     initializeAudio() {
         this.audioContext = new (window.AudioContext || window.webkitAudioContext)();
-        let strm: MediaStream = null;
+        this.chunks = [];
         if (navigator.mediaDevices.getUserMedia) {
-            // console.log('getUserMedia == mediaDevices.getUserMedia()');
-            // newer Firefox - we know it has MediaRecorder
-            navigator.mediaDevices.getUserMedia({ audio: true })
-                .then((stream: MediaStream) => {
-                    strm = stream;
-                    console.log('strm: '+strm);
-                    this.stream = stream;
-                    this.mediaRecorder = new MediaRecorder(this.stream);
-                    console.log('mediaDevices.getUserMedia(): SUCCESS! mediaRecorder == ' + this.mediaRecorder);
-                    /*
-                    mediaRecorder.ondataavailable(function(event) {
-                        console.log('ondataavailable ...');
-                        this.blobs.push(event.data);
-                    })
-                    mediaRecorder.onstop(function(event) {
-                        console.log('onstop ...');  
-                    })
-                    */
-                    // console.log('audioStream 0: ' + stream);
-                })
-                .catch(function(error) {
-                    console.log('mediaDevices.getUserMedia(): ERROR: ' + JSON.stringify(error));
-                });
+            this.getStreamAndRecorderNew();
         }
         else if (!navigator.getUserMedia) {
-            navigator.getUserMedia = navigator.getUserMedia ||
-                navigator.webkitGetUserMedia ||
-                navigator.mozGetUserMedia ||
-                navigator.msGetUserMedia;
-            if (navigator.getUserMedia) {
-                navigator.getUserMedia({ audio: true },
-                    function(stream) {
-                        this.stream = stream;
-                        console.log('strm: '+strm);
-                        try {
-                            this.mediaRecorder = new MediaRecorder(this.stream);
-                            console.log('getUserMedia(): SUCCESS! mediaRecorder == ' + this.mediaRecorder);
-                        }
-                        catch (error) {
-                            console.log('ERROR: Cannot instantiate a MediaRecorder object: ' + error.message);
-                        }
-                        // console.log('getUserMedia(): SUCCESS!');
-                    },
-                    function(error) {
-                        console.log('ERROR: getUserMedia(): ' + JSON.stringify(error));
-                    });
-            }
-
-            else {
-                console.log('ERROR: getUserMedia not supported in this browser.');
-            }
+            this.getStreamAndRecorderLegacy();
         }
-        console.log('initAudio(): audioContext=' + this.audioContext + ', audioStream: ' + this.stream +
-            ', mediaRecorder: ' + this.mediaRecorder);
-        console.log('initAudio(): audioContext=' + this.audioContext + ', audioStream: ' + strm +
-            ', mediaRecorder: ' + this.mediaRecorder);
-        // console.dir(this);
+    }
+
+    getStreamAndRecorderNew() {
+        // console.log('getUserMedia == mediaDevices.getUserMedia()');
+        // newer Firefox - we know it has MediaRecorder
+        navigator.mediaDevices.getUserMedia({ audio: true })
+            .then((stream: MediaStream) => {
+                this.stream = stream;
+                this.mediaRecorder = new MediaRecorder(this.stream);
+                console.log('mediaDevices.getUserMedia(): SUCCESS! mediaRecorder == ' + this.mediaRecorder);
+            })
+            .catch(function(error) {
+                console.log('mediaDevices.getUserMedia(): ERROR: ' + JSON.stringify(error));
+            });
+    }
+
+    getStreamAndRecorderLegacy() {
+        navigator.getUserMedia = navigator.getUserMedia ||
+            navigator.webkitGetUserMedia ||
+            navigator.mozGetUserMedia ||
+            navigator.msGetUserMedia;
+        if (navigator.getUserMedia) {
+            navigator.getUserMedia({ audio: true },
+                function(stream) {
+                    this.stream = stream;
+                    try {
+                        this.mediaRecorder = new MediaRecorder(this.stream);
+                        console.log('getUserMedia(): SUCCESS! mediaRecorder == ' + this.mediaRecorder);
+                    }
+                    catch (error) {
+                        console.log('ERROR: Cannot instantiate a MediaRecorder object: ' + error.message);
+                    }
+                    // console.log('getUserMedia(): SUCCESS!');
+                },
+                function(error) {
+                    console.log('ERROR: getUserMedia(): ' + JSON.stringify(error));
+                });
+        } // if (navigator.getUserMedia) {
+        else {
+            console.log('ERROR: getUserMedia not supported in this browser.');
+        }
     }
 
     startRecording() {
@@ -82,6 +71,16 @@ export class WebAudioAPI {
             console.log('ERROR: startRecording(): no this.mediaRecorder');
             return;
         }
+        
+        let chunks: Array<Float32Array> = this.chunks;
+        this.mediaRecorder.ondataavailable = function(event) {
+            chunks.push(event.data);
+        }
+
+        this.mediaRecorder.onstop = function(event) {
+            console.log('data available after MediaRecorder.stop() called. chunks.length = ' + chunks.length);
+        };
+
         this.mediaRecorder.start();
     }
 
@@ -104,7 +103,7 @@ export class WebAudioAPI {
     }
 
     stopRecording() {
-        console.log('WebAudioAPI:stopRecording() - blobs.length = ' + this.blobs.length);
+        console.log('WebAudioAPI:stopRecording()');
         if (!this.mediaRecorder) {
             console.log('ERROR: stopRecording(): no this.mediaRecorder');
             return;

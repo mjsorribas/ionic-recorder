@@ -10,7 +10,7 @@
 /// <reference path='../webrtc/MediaStream.d.ts' />
 
 declare var AudioContext: {
-    new(): AudioContext;
+    new (): AudioContext;
     prototype: AudioContext;
 }
 
@@ -171,19 +171,19 @@ declare enum OverSampleType {
 }
 
 declare enum OscillatorType {
-  sine,
-  square,
-  sawtooth,
-  triangle,
-  custom
+    sine,
+    square,
+    sawtooth,
+    triangle,
+    custom
 }
 
 interface AudioContextConstructor {
-    new(): AudioContext;
+    new (): AudioContext;
 }
 
 interface webkitAudioContextConstructor {
-    new(): webkitAudioContext;
+    new (): webkitAudioContext;
 }
 
 interface Window {
@@ -195,16 +195,11 @@ interface AudioContext {
     createMediaStreamSource(stream: MediaStream): MediaStreamAudioSourceNode;
 }
 
-interface webkitAudioContext extends AudioContext {
-}
-
 interface MediaStreamAudioSourceNode extends AudioNode {
-
 }
 
 interface AudioBuffer {
     copyFromChannel(destination: Float32Array, channelNumber: number, startInChannel?: number): void;
-
     copyToChannel(source: Float32Array, channelNumber: number, startInChannel?: number): void;
 }
 
@@ -218,18 +213,25 @@ interface AudioContext {
     close(): Promise<void>;
 }
 
-interface webkitAudioContext {
-    suspend(): Promise<void>;
-    resume(): Promise<void>;
-    close(): Promise<void>;
+interface webkitAudioContext extends AudioContext {
 }
 
+interface MediaRecorderEvent {
+    data: Float32Array;
+}
+
+interface MediaRecorderCallbackType {
+    (event: MediaRecorderEvent): void;
+}
 
 interface MediaRecorder {
     start(): void;
     pause(): void;
     resume(): void;
-    stop(): void; 
+    stop(): void;
+
+    ondataavailable: MediaRecorderCallbackType;
+    onstop: MediaRecorderCallbackType;
 }
 
 declare var MediaRecorder: {
