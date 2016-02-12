@@ -17,6 +17,7 @@ export class RecordPage {
     stopButtonIcon: string;
     stopButtonDisabled: boolean;
     gain: number;
+    currentVolume: number;
 
     constructor(private waa: WebAudioAPI) {
         console.log('constructor():RecordPage');
@@ -26,6 +27,12 @@ export class RecordPage {
         this.notYetStarted = true;
         this.recordingTime = "00:00:00:00";
         this.recordButtonIcon = 'mic';
+
+        let me: RecordPage = this;
+        this.waa.onChangeCallback = function(currentVolume: number) {
+            me.currentVolume = currentVolume;
+            console.log('v='+me.currentVolume+', min=' + me.waa.minVolume + ', max=' + me.waa.maxVolume);
+        };
     }
 
     onSliderDrag($event) {
@@ -34,6 +41,7 @@ export class RecordPage {
 
     onSliderChange($event) {
         this.gain = 1.0 * $event.target.value;
+        console.log('v='+this.currentVolume+', min=' + this.waa.minVolume + ', max=' + this.waa.maxVolume);
     }
 
     isRecording() {
@@ -47,6 +55,7 @@ export class RecordPage {
         else {
             this.startRecord();
         }
+        // console.log('v='+this.currentVolume+', min=' + this.waa.minVolume + ', max=' + this.waa.maxVolume);
     }
 
     pauseRecord() {
@@ -58,6 +67,7 @@ export class RecordPage {
         this.waa.stopRecording();
         this.notYetStarted = true;
         this.recordButtonIcon = 'mic';
+        // console.log('v='+this.currentVolume+', min=' + this.waa.minVolume + ', max=' + this.waa.maxVolume);
     }
 
     startRecord() {

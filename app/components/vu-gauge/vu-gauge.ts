@@ -57,15 +57,15 @@ export class VuGauge {
         this.valueStep = (1.0 * (this.max - this.min)) / (this.nbars - 1.0);
 
         this.ngOnChanges();
-        /*
+        
         console.log('ngOnInit():VuGauge: value = ' + this.value +
             ', valueStep = ' + this.valueStep +
             ', min = ' + this.min + ', max = ' + this.max);
-        */
+        
     }
 
     ngOnChanges() {
-        // console.log('ngOnChange():VuGauge: value = ' + this.value);
+        console.log('ngOnChange():VuGauge: value = ' + this.value);
         if (this.leds.length === 0) {
             return;
         }

@@ -193,6 +193,7 @@ interface Window {
 
 interface AudioContext {
     createMediaStreamSource(stream: MediaStream): MediaStreamAudioSourceNode;
+    createAnalyzer(stream: MediaStream): AnalyserNode;
 }
 
 interface MediaStreamAudioSourceNode extends AudioNode {
@@ -229,6 +230,8 @@ interface MediaRecorder {
     pause(): void;
     resume(): void;
     stop(): void;
+    
+    state: any;
 
     ondataavailable: MediaRecorderCallbackType;
     onstop: MediaRecorderCallbackType;

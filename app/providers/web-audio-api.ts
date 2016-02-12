@@ -7,57 +7,107 @@ export class WebAudioAPI {
     private stream: MediaStream;
     private mediaRecorder: MediaRecorder;
     private chunks: Array<Float32Array>;
-
+    private source: MediaElementAudioSourceNode;
+    private analyser: AnalyserNode;
+    monitorFrequencyHz: number;
+    monitorTimeoutMsec: number;
+    currentVolume: number;
+    minVolume: number;
+    maxVolume: number;
+    onChangeCallback: (currentVolume: number) => void;
     constructor() {
         console.log('constructor():WebAudioApi');
         this.audioContext = new (window.AudioContext || window.webkitAudioContext)();
         this.chunks = [];
+        this.currentVolume = 0.0;
+        this.minVolume = Infinity;
+        this.maxVolume = -Infinity;
+        this.monitorFrequencyHz = 10.0;
+        this.monitorTimeoutMsec = 1000.0 / this.monitorFrequencyHz;
         if (navigator.mediaDevices.getUserMedia) {
-            this.getStreamAndRecorderNew();
+            this.getStreamAndRecorderNewer();
         }
         else if (!navigator.getUserMedia) {
             this.getStreamAndRecorderLegacy();
         }
     }
 
-    getStreamAndRecorderNew() {
+    getStreamAndRecorderNewer() {
         // console.log('getUserMedia == mediaDevices.getUserMedia()');
         // newer Firefox - we know it has MediaRecorder
         navigator.mediaDevices.getUserMedia({ audio: true })
             .then((stream: MediaStream) => {
                 this.stream = stream;
-                this.mediaRecorder = new MediaRecorder(this.stream);
+                this.mediaRecorder = new MediaRecorder(stream);
+                this.monitorStream(stream);
                 console.log('mediaDevices.getUserMedia(): SUCCESS! mediaRecorder == ' + this.mediaRecorder);
             })
             .catch(function(error) {
-                console.log('mediaDevices.getUserMedia(): ERROR: ' + JSON.stringify(error));
+                console.log('mediaDevices.getUserMedia(): ERROR: ' + error);
             });
     }
 
     getStreamAndRecorderLegacy() {
-        navigator.getUserMedia = navigator.getUserMedia ||
-            navigator.webkitGetUserMedia ||
-            navigator.mozGetUserMedia ||
-            navigator.msGetUserMedia;
+        navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia ||
+            navigator.mozGetUserMedia || navigator.msGetUserMedia;
         if (navigator.getUserMedia) {
             navigator.getUserMedia({ audio: true },
                 function(stream) {
                     this.stream = stream;
                     try {
-                        this.mediaRecorder = new MediaRecorder(this.stream);
+                        this.mediaRecorder = new MediaRecorder(stream);
+                        this.monitorStream(stream);
                         console.log('getUserMedia(): SUCCESS! mediaRecorder == ' + this.mediaRecorder);
                     }
                     catch (error) {
                         console.log('ERROR: Cannot instantiate a MediaRecorder object: ' + error.message);
                     }
-                    // console.log('getUserMedia(): SUCCESS!');
                 },
                 function(error) {
                     console.log('ERROR: getUserMedia(): ' + JSON.stringify(error));
                 });
-        } // if (navigator.getUserMedia) {
+        }
         else {
             console.log('ERROR: getUserMedia not supported in this browser.');
+        }
+    }
+
+    monitorStream(stream: MediaStream) {
+        console.log('monitorStream');
+        this.source = this.audioContext.createMediaStreamSource(stream);
+        let analyser: AnalyserNode = this.audioContext.createAnalyser();
+        analyser.fftSize = 2048;
+        let bufferLength: number = analyser.frequencyBinCount;
+        let dataArray: Uint8Array = new Uint8Array(bufferLength);
+        this.source.connect(analyser);
+        let waa: WebAudioAPI = this;
+        repeat();
+        function repeat() {
+            analyser.getByteTimeDomainData(dataArray);
+            let bufferMax = -Infinity;
+            let bufferMin = Infinity;
+            for (let i: number = 0; i < bufferLength; i++) {
+                let value: number = dataArray[i] - 128.0;
+                let absValue: number = Math.abs(value);
+                if (absValue < bufferMin) {
+                    bufferMin = absValue;
+                }
+                if (absValue > bufferMax) {
+                    bufferMax = absValue;
+                }
+            }
+            if (bufferMin < waa.minVolume) {
+                waa.minVolume = bufferMin;
+            }
+            if (bufferMax > waa.maxVolume) {
+                waa.maxVolume = bufferMax;
+            }
+            waa.currentVolume = bufferMax;
+            
+            // console.log(dataArray[0] + ', min=' + waa.minVolume + ', max=' + waa.maxVolume+', vol='+waa.currentVolume);
+            waa.onChangeCallback && waa.onChangeCallback(waa.currentVolume);
+
+            setTimeout(repeat, waa.monitorTimeoutMsec);
         }
     }
 
@@ -68,6 +118,7 @@ export class WebAudioAPI {
             return;
         }
 
+        // set up MediaRecorder callbacks
         let chunks: Array<Float32Array> = this.chunks;
         this.mediaRecorder.ondataavailable = function(event) {
             chunks.push(event.data);
@@ -79,6 +130,7 @@ export class WebAudioAPI {
         };
 
         this.mediaRecorder.start();
+        console.log('mediaRecorder started, state: ' + this.mediaRecorder.state);
     }
 
     pauseRecording() {
