@@ -29,8 +29,8 @@ export class RecordPage {
         this.recordButtonIcon = 'mic';
 
         let me: RecordPage = this;
-        this.waa.onChangeCallback = function(currentVolume: number) {
-            me.currentVolume = currentVolume;
+        this.waa.onChangeCallback = function() {
+            me.currentVolume = me.waa.getVolume();
             console.log('v='+me.currentVolume+', min=' + me.waa.minVolume + ', max=' + me.waa.maxVolume);
         };
     }
@@ -41,7 +41,7 @@ export class RecordPage {
 
     onSliderChange($event) {
         this.gain = 1.0 * $event.target.value;
-        console.log('v='+this.currentVolume+', min=' + this.waa.minVolume + ', max=' + this.waa.maxVolume);
+        // console.log('v='+this.currentVolume+', min=' + this.waa.minVolume + ', max=' + this.waa.maxVolume);
     }
 
     isRecording() {

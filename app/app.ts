@@ -21,7 +21,6 @@ class MyApp {
     pages: Array<{ title: string, component: Type, hide: boolean }>;
 
     constructor(private app: IonicApp, private platform: Platform) {
-
         this.initializeApp();
 
         // set our app's pages

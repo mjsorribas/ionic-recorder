@@ -14,7 +14,13 @@ export class WebAudioAPI {
     currentVolume: number;
     minVolume: number;
     maxVolume: number;
-    onChangeCallback: (currentVolume: number) => void;
+    // onChangeCallback: (currentVolume: number) => void;
+    onChangeCallback: () => void;
+    
+    getVolume() {
+        return this.currentVolume;
+    }
+    
     constructor() {
         console.log('constructor():WebAudioApi');
         this.audioContext = new (window.AudioContext || window.webkitAudioContext)();
@@ -25,14 +31,14 @@ export class WebAudioAPI {
         this.monitorFrequencyHz = 10.0;
         this.monitorTimeoutMsec = 1000.0 / this.monitorFrequencyHz;
         if (navigator.mediaDevices.getUserMedia) {
-            this.getStreamAndRecorderNewer();
+            this.newerAudioInit();
         }
         else if (!navigator.getUserMedia) {
-            this.getStreamAndRecorderLegacy();
+            this.olderAudioInit();
         }
     }
 
-    getStreamAndRecorderNewer() {
+    newerAudioInit() {
         // console.log('getUserMedia == mediaDevices.getUserMedia()');
         // newer Firefox - we know it has MediaRecorder
         navigator.mediaDevices.getUserMedia({ audio: true })
@@ -47,7 +53,7 @@ export class WebAudioAPI {
             });
     }
 
-    getStreamAndRecorderLegacy() {
+    olderAudioInit() {
         navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia ||
             navigator.mozGetUserMedia || navigator.msGetUserMedia;
         if (navigator.getUserMedia) {
@@ -105,7 +111,8 @@ export class WebAudioAPI {
             waa.currentVolume = bufferMax;
             
             // console.log(dataArray[0] + ', min=' + waa.minVolume + ', max=' + waa.maxVolume+', vol='+waa.currentVolume);
-            waa.onChangeCallback && waa.onChangeCallback(waa.currentVolume);
+            // waa.onChangeCallback && waa.onChangeCallback(waa.currentVolume);
+            waa.onChangeCallback && waa.onChangeCallback();
 
             setTimeout(repeat, waa.monitorTimeoutMsec);
         }

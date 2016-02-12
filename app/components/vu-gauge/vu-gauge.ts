@@ -1,4 +1,4 @@
-import {Component, Input, ChangeDetectionStrategy} from 'angular2/core';
+import {Component, Input, ChangeDetectionStrategy, ChangeDetectorRef, OnChanges} from 'angular2/core';
 import {HSV} from '../../providers/colormap';
 
 interface LED {
@@ -33,13 +33,19 @@ export class VuGauge {
     @Input() private min: number;
     @Input() private max: number;
     @Input() private value: number;
+    @Input() private rate: number;
     private ledWidth: string;
     private leds: Array<LED>;
     private hStep: number;
     private valueStep: number;
 
-    constructor(private hsv: HSV) {
-        console.log('constructor():VuGauge');
+    constructor(private hsv: HSV, private ref: ChangeDetectorRef) {
+        this.rate = 40;
+        let intervalMsec: number = 1.0 / (1.0 * this.rate);
+        console.log('constructor():VuGauge - refreshing every: '+intervalMsec+' msec');
+        setInterval(() => {
+            this.ref.markForCheck();
+        }, intervalMsec);
         this.leds = [];
     }
 
@@ -57,16 +63,20 @@ export class VuGauge {
         this.valueStep = (1.0 * (this.max - this.min)) / (this.nbars - 1.0);
 
         this.ngOnChanges();
-        
+
         console.log('ngOnInit():VuGauge: value = ' + this.value +
             ', valueStep = ' + this.valueStep +
             ', min = ' + this.min + ', max = ' + this.max);
-        
+
     }
 
-    ngOnChanges() {
-        console.log('ngOnChange():VuGauge: value = ' + this.value);
+    ngOnChanges(changeRecord) {
+        for (var change in changeRecord) {
+            console.log('changed: ' + change);
+        }
+        console.log('ngOnChanges():VuGauge: value = ' + this.value);
         if (this.leds.length === 0) {
+            console.log('nOnChanges():VuGauge: not ready!!!');
             return;
         }
         for (let i: number = 0; i < this.nbars; i++) {
