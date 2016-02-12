@@ -2,6 +2,7 @@ import {Page, Modal, Alert, NavController} from 'ionic-framework/ionic';
 import {LibraryPage} from '../library/library';
 import {VuGauge} from '../../components/vu-gauge/vu-gauge';
 import {AppState} from '../../providers/app-state';
+import {WebAudioAPI} from '../../providers/web-audio-api';
 
 
 @Page({
@@ -16,7 +17,8 @@ export class RecordPage {
     stopButtonIcon: string;
     stopButtonDisabled: boolean;
     gain: number;
-    constructor() {
+
+    constructor(private waa: WebAudioAPI) {
         console.log('constructor():RecordPage');
 
         this.gain = 29;
@@ -33,9 +35,6 @@ export class RecordPage {
 
     onSliderChange($event) {
         this.gain = 1.0 * $event.target.value;
-
-        console.log('onSliderChange(): value = ' + $event.target.value +
-            ', gain = ' + this.gain);
     }
 
     isRecording() {
@@ -44,29 +43,32 @@ export class RecordPage {
 
     toggleRecord() {
         if (this.isRecording()) {
-            console.log('--> is recording');
             this.pauseRecord();
         }
         else {
-            console.log('--> not recording');
             this.startRecord();
         }
     }
 
     pauseRecord() {
-        console.log('stopRecord()');
+        this.waa.pauseRecording();
         this.recordButtonIcon = 'mic';
     }
 
     stopRecord() {
-        console.log('stopRecord()');
+        this.waa.stopRecording();
         this.notYetStarted = true;
         this.recordButtonIcon = 'mic';
     }
 
     startRecord() {
-        console.log('startRecord()');
-        this.notYetStarted = null;
+        if (this.notYetStarted) {
+            this.waa.startRecording();
+            this.notYetStarted = null;
+        }
+        else {
+            this.waa.resumeRecording();
+        }
         this.recordButtonIcon = 'pause';
     }
 

@@ -64,7 +64,7 @@ export class VuGauge {
     }
 
     ngOnChanges() {
-        console.log('ngOnChange():VuGauge: value = ' + this.value);
+        // console.log('ngOnChange():VuGauge: value = ' + this.value);
         if (this.leds.length === 0) {
             return;
         }

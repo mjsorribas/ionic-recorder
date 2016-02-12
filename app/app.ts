@@ -2,6 +2,7 @@ import {App, IonicApp, Platform} from 'ionic-framework/ionic';
 import {TabsPage} from './pages/tabs/tabs';
 import {HSV} from './providers/colormap';
 import {AppState} from './providers/app-state';
+import {WebAudioAPI} from './providers/web-audio-api';
 
 // https://angular.io/docs/ts/latest/api/core/Type-interface.html
 import {Type} from 'angular2/core';
@@ -9,7 +10,7 @@ import {Type} from 'angular2/core';
 
 @App({
     templateUrl: 'build/app.html',
-    providers: [HSV, AppState],
+    providers: [HSV, AppState, WebAudioAPI],
     config: {
         backButtonText: ''
     }
