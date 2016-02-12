@@ -25,8 +25,7 @@ export class RecordPage {
         this.sliderValue = 33;
         this.notYetStarted = true;
         this.recordingTime = "00:00:00:00";
-
-        this.stopRecord();
+        this.recordButtonIcon = 'mic';
     }
 
     onSliderDrag($event) {

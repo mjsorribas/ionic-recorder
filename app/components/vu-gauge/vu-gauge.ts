@@ -39,7 +39,7 @@ export class VuGauge {
     private valueStep: number;
 
     constructor(private hsv: HSV) {
-        console.log('constructor():VuGauge: value = ' + this.value);
+        console.log('constructor():VuGauge');
         this.leds = [];
     }
 
@@ -57,10 +57,11 @@ export class VuGauge {
         this.valueStep = (1.0 * (this.max - this.min)) / (this.nbars - 1.0);
 
         this.ngOnChanges();
-
+        /*
         console.log('ngOnInit():VuGauge: value = ' + this.value +
             ', valueStep = ' + this.valueStep +
             ', min = ' + this.min + ', max = ' + this.max);
+        */
     }
 
     ngOnChanges() {

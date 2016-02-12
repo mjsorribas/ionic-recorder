@@ -12,7 +12,9 @@
     "inlineSources": false
   },
   "files": [
-    "app/app.ts"
+    "app/app.ts",
+    "typings/webaudioapi/waa.d.ts",
+    "typings/webrtc/MediaStream.d.ts"
   ],
   "exclude": [
     "node_modules"
