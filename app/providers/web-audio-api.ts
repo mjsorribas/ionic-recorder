@@ -71,10 +71,11 @@ export class WebAudioAPI {
             console.log('ERROR: startRecording(): no this.mediaRecorder');
             return;
         }
-        
+
         let chunks: Array<Float32Array> = this.chunks;
         this.mediaRecorder.ondataavailable = function(event) {
             chunks.push(event.data);
+            console.log('data available: # of chunks: ' + chunks.length);
         }
 
         this.mediaRecorder.onstop = function(event) {
