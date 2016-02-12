@@ -10,10 +10,6 @@ export class WebAudioAPI {
 
     constructor() {
         console.log('constructor():WebAudioApi');
-        this.initializeAudio();
-    }
-
-    initializeAudio() {
         this.audioContext = new (window.AudioContext || window.webkitAudioContext)();
         this.chunks = [];
         if (navigator.mediaDevices.getUserMedia) {
