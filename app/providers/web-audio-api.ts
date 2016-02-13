@@ -12,7 +12,6 @@ export class WebAudioAPI {
     monitorRate: number;
     currentVolume: number;
     maxVolume: number;
-    // onChangeCallback: (currentVolume: number) => void;
     onChangeCallback: () => void;
     
     constructor() {
@@ -94,28 +93,6 @@ export class WebAudioAPI {
             
             this.onChangeCallback && this.onChangeCallback();
         }, 1000.0/(1.0*this.monitorRate));
-        /*
-        let waa: WebAudioAPI = this;
-        repeat();
-        function repeat() {
-            analyser.getByteTimeDomainData(dataArray);
-            let bufferMax = -Infinity;
-            for (let i: number = 0; i < bufferLength; i++) {
-                let absValue: number = Math.abs(dataArray[i] - 128.0);
-                if (absValue > bufferMax) {
-                    bufferMax = absValue;
-                }
-            }
-            if (bufferMax > waa.maxVolume) {
-                waa.maxVolume = bufferMax;
-            }
-            waa.currentVolume = bufferMax;
-            
-            waa.onChangeCallback && waa.onChangeCallback();
-
-            setTimeout(repeat, waa.monitorTimeoutMsec);
-        }
-        */
     }
 
     startRecording() {

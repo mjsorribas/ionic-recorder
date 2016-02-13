@@ -19,6 +19,7 @@ class MyApp {
     // make HelloIonicPage the root (or first) page
     rootPage: Type = TabsPage;
     pages: Array<{ title: string, component: Type, hide: boolean }>;
+    platformClass: string;
 
     constructor(private app: IonicApp, private platform: Platform) {
         this.initializeApp();
@@ -29,6 +30,14 @@ class MyApp {
             { title: 'Signup', component: null, hide: true },
             { title: 'Logout', component: null, hide: true }
         ];
+
+        if (this.platform.is('core')) {
+            this.platformClass = 'browser';
+        } else if (this.platform.is('ios')) {
+            this.platformClass = 'ios';
+        } else if (this.platform.is('android')) {
+            this.platformClass = 'android';
+        }
     }
 
     initializeApp() {

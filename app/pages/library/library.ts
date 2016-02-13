@@ -1,4 +1,4 @@
-import {IonicApp, Page, Modal, Alert, NavController} from 'ionic-framework/ionic';
+import {IonicApp, Page, Modal, Alert, NavController, Platform} from 'ionic-framework/ionic';
 import {RecordPage} from '../record/record';
 import {LibraryFilterPage} from '../library-filter/library-filter';
 
@@ -23,8 +23,18 @@ export class LibraryPage {
     filterTracks: Array<any>;
     placeholder: string;
     segment: string;
-    constructor(private app: IonicApp, private nav: NavController) {
+    platformClass: string;
+
+    constructor(private app: IonicApp, private nav: NavController, private platform: Platform) {
         console.log('constructor():LibraryPage');
+
+        if (this.platform.is('core')) {
+            this.platformClass = 'browser';
+        } else if (this.platform.is('ios')) {
+            this.platformClass = 'ios';
+        } else if (this.platform.is('android')) {
+            this.platformClass = 'android';
+        }
 
         this.items = [];
 

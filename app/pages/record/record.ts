@@ -18,18 +18,18 @@ export class RecordPage {
     stopButtonDisabled: boolean;
     gain: number;
     currentVolume: number;
-    platform: string;
+    platformClass: string;
 
-    constructor(private waa: WebAudioAPI, private ionicPlatform: Platform) {
-         if (this.ionicPlatform.is('core')) {
-            this.platform = 'browser';
-        } else if (this.ionicPlatform.is('ios')) {
-            this.platform = 'ios';
-        } else if (this.ionicPlatform.is('android')) {
-            this.platform = 'android';
+    constructor(private waa: WebAudioAPI, private platform: Platform) {
+        if (this.platform.is('core')) {
+            this.platformClass = 'browser';
+        } else if (this.platform.is('ios')) {
+            this.platformClass = 'ios';
+        } else if (this.platform.is('android')) {
+            this.platformClass = 'android';
         }
-        
-        console.log('constructor():RecordPage - running in ' + this.platform);
+
+        console.log('constructor():RecordPage - running in ' + this.platformClass);
         this.gain = 29;
         this.sliderValue = 33;
         this.notYetStarted = true;
