@@ -1,24 +1,29 @@
-$track-color: #424242;
-$thumb-color: #555bc8;
+/*
+ * range-input.scss
+ */
 
-$thumb-radius: 8px;
+$thumb-radius: 15px;
 $thumb-height: 30px;
 $thumb-width: 30px;
 $thumb-shadow-size: 1px;
 $thumb-shadow-blur: 1px;
-$thumb-shadow-color: #111;
 $thumb-border-width: 1px;
-$thumb-border-color: white;
+
+$thumb-color: map-get($colors, light-gray);
+$thumb-shadow-color: map-get($colors, medium-gray);
+$thumb-border-color: map-get($colors, dark-gray);
 
 $track-width: 100%;
 $track-height: 10px;
 $track-shadow-size: 2px;
 $track-shadow-blur: 2px;
-$track-shadow-color: #222;
 $track-border-width: 1px;
-$track-border-color: black;
-
 $track-radius: 5px;
+
+$track-color:  map-get($colors, dark-gray);
+$track-border-color: map-get($colors, medium-gray);
+$track-shadow-color: map-get($colors, dark-gray);
+
 $contrast: 5%;
 
 @mixin shadow($shadow-size,$shadow-blur,$shadow-color) {
@@ -42,10 +47,16 @@ $contrast: 5%;
     cursor: pointer;
 }
 
+input[type=range]::-moz-focus-outer {
+    border: 0;
+}
+
 input[type=range] {
     -webkit-appearance: none;
     margin: $thumb-height/2 0;
     width: $track-width;
+    background: black;
+    border: 0;
 
     &:focus {
         outline: none;
