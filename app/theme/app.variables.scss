@@ -35,33 +35,21 @@ $colors: (
     
     logo-red:           #b92025,
     logo-orange:        #f27321
-);
+// );
+) !default;
 
-/*
-$searchbar-ios-input-search-icon-color: map-get($colors, light) !default;
-$searchbar-ios-input-clear-icon-color: map-get($colors, light) !default;
+// from: https://medium.com/@hjbme/dark-theme-in-ionic-2-beta-as-of-today-d54e3fd89217#.ghkbb5t76
+$text-color: #fff !default;
+$background-color: #222 !default;
 
-// $text-color: white !default;
-$text-color: map-get($colors, light) !default;
+$list-text-color: $text-color !default;
+$list-background-color: $background-color !default;
+$list-border-color: #666 !default;
 
-// $background-color: #222 !default;
-$background-color: map-get($colors, dark) !default;
+$link-color: map-get($colors, primary) !default;
 
-// toggle switches
-$toggle-ios-background-color-off:      map-get($colors, darkest-gray) !default;
-$toggle-ios-background-color-on:       map-get($colors, dark-gray) !default;
-$toggle-ios-handle-background-color:   map-get($colors, light-gray) !default;
-
-$toggle-md-track-background-color-off:   map-get($colors, darkest-gray) !default;
-$toggle-md-track-background-color-on:    map-get($colors, dark-gray) !default;
-
-$toggle-md-handle-background-color-on:   map-get($colors, light-gray) !default;
-$toggle-md-handle-background-color-off:   map-get($colors, dark-gray) !default;
-
-// these next 3 toolbar variables determine tabbar appearance as well:
-$toolbar-ios-border-color: map-get($colors, light-gray) !default;
-$toolbar-ios-active-color: white !default;
-$toolbar-ios-inactive-color: map-get($colors, dark-gray) !default;
-
-$tabbar-ios-background: $background-color !default;
-*/
+$toolbar-background-color: #111 !default;
+$toolbar-border-color: #000 !default;
+$toolbar-text-color: $text-color !default;
+$toolbar-active-color: $link-color !default;
+$toolbar-inactive-color: #8c8c8c !default;

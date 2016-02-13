@@ -1,4 +1,4 @@
-import {Page, Modal, Alert, NavController} from 'ionic-framework/ionic';
+import {Page, Modal, Alert, NavController, Platform} from 'ionic-framework/ionic';
 import {LibraryPage} from '../library/library';
 import {VuGauge} from '../../components/vu-gauge/vu-gauge';
 import {AppState} from '../../providers/app-state';
@@ -18,15 +18,24 @@ export class RecordPage {
     stopButtonDisabled: boolean;
     gain: number;
     currentVolume: number;
+    platform: string;
 
-    constructor(private waa: WebAudioAPI) {
-        console.log('constructor():RecordPage');
+    constructor(private waa: WebAudioAPI, private ionicPlatform: Platform) {
+         if (this.ionicPlatform.is('core')) {
+            this.platform = 'browser';
+        } else if (this.ionicPlatform.is('ios')) {
+            this.platform = 'ios';
+        } else if (this.ionicPlatform.is('android')) {
+            this.platform = 'android';
+        }
+        
+        console.log('constructor():RecordPage - running in ' + this.platform);
         this.gain = 29;
         this.sliderValue = 33;
         this.notYetStarted = true;
         this.recordingTime = "00:00:00:00";
         this.recordButtonIcon = 'mic';
-        
+
         this.waa.onChangeCallback = () => {
             this.currentVolume = this.waa.currentVolume;
         }
