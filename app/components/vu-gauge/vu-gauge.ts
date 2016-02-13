@@ -41,13 +41,21 @@ export class VuGauge {
     private valueStep: number;
 
     constructor(private hsv: HSV, private ref: ChangeDetectorRef) {
-        this.rate = 30;
-        let intervalMsec: number = 1.0 / (1.0 * this.rate);
-        console.log('constructor():VuGauge - refreshing every: ' + intervalMsec + ' msec');
-        setInterval(() => {
-            this.ref.markForCheck();
-        }, intervalMsec);
+        console.log('constructor():VuGauge');
         this.leds = [];
+    }
+
+    resetInterval() {
+        if (this.rate) {
+            let intervalMsec: number = 1000.0 / (1.0 * this.rate);
+            console.log('resetInterval(): '+intervalMsec);
+            setInterval(() => {
+                this.ref.markForCheck();
+            }, intervalMsec);
+        }
+        else {
+            console.log('WARNING: no this.rate!');
+        }
     }
 
     ngOnInit() {
@@ -83,7 +91,8 @@ export class VuGauge {
                 // console.log('VuGauge:ngOnChanges: max');
             }
             else if (change === 'rate') {
-                // console.log('VuGauge:ngOnChanges: rate');
+                console.log('VuGauge:ngOnChanges: rate, this.rate='+this.rate);
+                this.resetInterval();
             }
         }
     }

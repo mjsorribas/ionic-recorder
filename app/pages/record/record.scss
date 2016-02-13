@@ -13,6 +13,10 @@ input[type="range"] {
     width: 100%;    
 }
 
+p.item-label {
+    margin-bottom: 0.2em;
+}
+
 div.record-upload-buttons {
     text-align: center; // center-justify the two buttons in the page
     button.record-button {

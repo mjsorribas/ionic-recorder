@@ -8,7 +8,9 @@
 </ion-navbar>
 
 <ion-content padding [class]="platformClass">
-    <vu-gauge bgcolor="#fff" width="100%" height="2.5em" nbars="55" min="0" max="100" rate="3" [value]="currentVolume"></vu-gauge>
+    <p class="item-label">Mic Volume Monitor:</p>
+    <vu-gauge bgcolor="#fff" width="100%" height="2.5em" nbars="55" min="0" max="100" rate="30" [value]="currentVolume"></vu-gauge>
+    <p class="item-label">Gain: {{gain}}</p>
     <input type="range" min="0" max="100" [value]="sliderValue" (input)="onSliderChange($event)" (touchstart)="onSliderDrag($event)" (mousedown)="onSliderDrag($event)">
     <div class="recording-time">{{recordingTime}}</div>
     <div class="record-upload-buttons">
