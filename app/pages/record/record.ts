@@ -47,7 +47,6 @@ export class RecordPage {
 
     onSliderChange($event) {
         this.gain = 1.0 * $event.target.value;
-        // console.log('v='+this.currentVolume+', min=' + this.waa.minVolume + ', max=' + this.waa.maxVolume);
     }
 
     isRecording() {
@@ -61,7 +60,6 @@ export class RecordPage {
         else {
             this.startRecord();
         }
-        // console.log('v='+this.currentVolume+', min=' + this.waa.minVolume + ', max=' + this.waa.maxVolume);
     }
 
     pauseRecord() {
@@ -73,7 +71,6 @@ export class RecordPage {
         this.waa.stopRecording();
         this.notYetStarted = true;
         this.recordButtonIcon = 'mic';
-        // console.log('v='+this.currentVolume+', min=' + this.waa.minVolume + ', max=' + this.waa.maxVolume);
     }
 
     startRecord() {

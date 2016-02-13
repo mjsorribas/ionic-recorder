@@ -1,11 +1,6 @@
-$button-font-size: 1.3em;
-$button-width: 5.8em;
-$button-height: $button-width;
-
-.recording-time {
-    text-align: center;
-    font-size: 2.3em;
-}
+/* 
+ * record.scss 
+ */
 
 input[type="range"] {
     // display: block; to stack up vertically with other items
@@ -17,20 +12,19 @@ p.item-label {
     margin-bottom: 0.2em;
 }
 
+.recording-time {
+    text-align: center;
+    font-size: 2.3em;
+}
+
 div.record-upload-buttons {
     text-align: center; // center-justify the two buttons in the page
-    button.record-button {
-         border-radius: 50%;
+    button:first-child {
+        border-radius: 50%;
     }
     button {
-        font-size: $button-font-size;
-        width: $button-width;
-        height: $button-height;
-        .true {
-            color: black;
-        }
-        .null {
-            color: white;
-        }
+        font-size: 1.3em;
+        width: 5.8em;
+        height: 5.8em;
     }
 }
