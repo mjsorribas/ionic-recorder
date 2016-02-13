@@ -67,7 +67,7 @@ export class VuGauge {
     ngOnChanges(changeRecord) {
         for (var change in changeRecord) {
             if (change === 'value' && this.leds.length > 0) {
-                console.log('VuGauge:ngOnChanges: value');
+                // console.log('VuGauge:ngOnChanges: value');
                 for (let i: number = 0; i < this.nbars; i++) {
                     let fill: string;
                     if (this.min + this.valueStep * i <= this.value) {
@@ -80,10 +80,10 @@ export class VuGauge {
                 }
             }
             else if (change === 'max') {
-                console.log('VuGauge:ngOnChanges: max');
+                // console.log('VuGauge:ngOnChanges: max');
             }
             else if (change === 'rate') {
-                console.log('VuGauge:ngOnChanges: rate');
+                // console.log('VuGauge:ngOnChanges: rate');
             }
         }
     }

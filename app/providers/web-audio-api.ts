@@ -71,7 +71,7 @@ export class WebAudioAPI {
     }
 
     monitorStream(stream: MediaStream) {
-        console.log('monitorStream');
+        // console.log('monitorStream');
         this.source = this.audioContext.createMediaStreamSource(stream);
         let analyser: AnalyserNode = this.audioContext.createAnalyser();
         analyser.fftSize = 2048;

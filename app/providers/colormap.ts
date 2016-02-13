@@ -2,6 +2,10 @@ import {Injectable} from 'angular2/core';
 
 @Injectable()
 export class HSV {
+    constructor() {
+        console.log('constructor(): HSV');
+    }
+    
     toRGB(h, s, v) {
         var r, g, b, i, f, p, q, t;
 
