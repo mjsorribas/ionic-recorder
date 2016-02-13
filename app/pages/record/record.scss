@@ -26,6 +26,11 @@ div.record-upload-buttons {
         font-size: $button-font-size;
         width: $button-width;
         height: $button-height;
-        color: black;
+        .true {
+            color: black;
+        }
+        .null {
+            color: white;
+        }
     }
 }

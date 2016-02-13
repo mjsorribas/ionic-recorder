@@ -79,7 +79,7 @@ export class RecordPage {
     startRecord() {
         if (this.notYetStarted) {
             this.waa.startRecording();
-            this.notYetStarted = null;
+            this.notYetStarted = false;
         }
         else {
             this.waa.resumeRecording();
