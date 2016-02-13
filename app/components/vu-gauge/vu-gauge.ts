@@ -28,6 +28,7 @@ interface LED {
         '      </svg>'].join('')
 })
 export class VuGauge {
+    // TODO: height, nbars, min are all to be set only once - remove data binding on them
     @Input() private height: string;
     @Input() private nbars: number;
     @Input() private min: number;
@@ -40,9 +41,9 @@ export class VuGauge {
     private valueStep: number;
 
     constructor(private hsv: HSV, private ref: ChangeDetectorRef) {
-        this.rate = 40;
+        this.rate = 30;
         let intervalMsec: number = 1.0 / (1.0 * this.rate);
-        console.log('constructor():VuGauge - refreshing every: '+intervalMsec+' msec');
+        console.log('constructor():VuGauge - refreshing every: ' + intervalMsec + ' msec');
         setInterval(() => {
             this.ref.markForCheck();
         }, intervalMsec);
@@ -61,34 +62,29 @@ export class VuGauge {
             });
         }
         this.valueStep = (1.0 * (this.max - this.min)) / (this.nbars - 1.0);
-
-        this.ngOnChanges();
-
-        console.log('ngOnInit():VuGauge: value = ' + this.value +
-            ', valueStep = ' + this.valueStep +
-            ', min = ' + this.min + ', max = ' + this.max);
-
     }
 
     ngOnChanges(changeRecord) {
         for (var change in changeRecord) {
-            console.log('changed: ' + change);
-        }
-        console.log('ngOnChanges():VuGauge: value = ' + this.value);
-        if (this.leds.length === 0) {
-            console.log('nOnChanges():VuGauge: not ready!!!');
-            return;
-        }
-        for (let i: number = 0; i < this.nbars; i++) {
-            let fill: string;
-            if (this.min + this.valueStep * i <= this.value) {
-                fill = this.hsv.toRGB(120.0 - i * this.hStep, 1.0, 1.0);
+            if (change === 'value' && this.leds.length > 0) {
+                console.log('VuGauge:ngOnChanges: value');
+                for (let i: number = 0; i < this.nbars; i++) {
+                    let fill: string;
+                    if (this.min + this.valueStep * i <= this.value) {
+                        fill = this.hsv.toRGB(120.0 - i * this.hStep, 1.0, 1.0);
+                    }
+                    else {
+                        fill = this.hsv.toRGB(120.0 - i * this.hStep, 1.0, 0.3);
+                    }
+                    this.leds[i].fill = fill;
+                }
             }
-            else {
-                fill = this.hsv.toRGB(120.0 - i * this.hStep, 1.0, 0.3);
+            else if (change === 'max') {
+                console.log('VuGauge:ngOnChanges: max');
             }
-            this.leds[i].fill = fill;
+            else if (change === 'rate') {
+                console.log('VuGauge:ngOnChanges: rate');
+            }
         }
     }
-
 }

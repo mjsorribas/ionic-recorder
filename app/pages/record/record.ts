@@ -21,18 +21,15 @@ export class RecordPage {
 
     constructor(private waa: WebAudioAPI) {
         console.log('constructor():RecordPage');
-
         this.gain = 29;
         this.sliderValue = 33;
         this.notYetStarted = true;
         this.recordingTime = "00:00:00:00";
         this.recordButtonIcon = 'mic';
-
-        let me: RecordPage = this;
-        this.waa.onChangeCallback = function() {
-            me.currentVolume = me.waa.getVolume();
-            console.log('v='+me.currentVolume+', min=' + me.waa.minVolume + ', max=' + me.waa.maxVolume);
-        };
+        
+        this.waa.onChangeCallback = () => {
+            this.currentVolume = this.waa.currentVolume;
+        }
     }
 
     onSliderDrag($event) {

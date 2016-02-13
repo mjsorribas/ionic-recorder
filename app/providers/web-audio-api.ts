@@ -9,27 +9,19 @@ export class WebAudioAPI {
     private chunks: Array<Float32Array>;
     private source: MediaElementAudioSourceNode;
     private analyser: AnalyserNode;
-    monitorFrequencyHz: number;
-    monitorTimeoutMsec: number;
+    monitorRate: number;
     currentVolume: number;
-    minVolume: number;
     maxVolume: number;
     // onChangeCallback: (currentVolume: number) => void;
     onChangeCallback: () => void;
-    
-    getVolume() {
-        return this.currentVolume;
-    }
     
     constructor() {
         console.log('constructor():WebAudioApi');
         this.audioContext = new (window.AudioContext || window.webkitAudioContext)();
         this.chunks = [];
-        this.currentVolume = 0.0;
-        this.minVolume = Infinity;
-        this.maxVolume = -Infinity;
-        this.monitorFrequencyHz = 10.0;
-        this.monitorTimeoutMsec = 1000.0 / this.monitorFrequencyHz;
+        this.currentVolume = 0;
+        this.maxVolume = 0;
+        this.monitorRate = 60;
         if (navigator.mediaDevices.getUserMedia) {
             this.newerAudioInit();
         }
@@ -86,36 +78,44 @@ export class WebAudioAPI {
         let bufferLength: number = analyser.frequencyBinCount;
         let dataArray: Uint8Array = new Uint8Array(bufferLength);
         this.source.connect(analyser);
+        setInterval(() => {
+            analyser.getByteTimeDomainData(dataArray);
+            let bufferMax = 0;
+            for (let i: number = 0; i < bufferLength; i++) {
+                let absValue: number = Math.abs(dataArray[i] - 128.0);
+                if (absValue > bufferMax) {
+                    bufferMax = absValue;
+                }
+            }
+            if (bufferMax > this.maxVolume) {
+                this.maxVolume = bufferMax;
+            }
+            this.currentVolume = bufferMax;
+            
+            this.onChangeCallback && this.onChangeCallback();
+        }, 1000.0/(1.0*this.monitorRate));
+        /*
         let waa: WebAudioAPI = this;
         repeat();
         function repeat() {
             analyser.getByteTimeDomainData(dataArray);
             let bufferMax = -Infinity;
-            let bufferMin = Infinity;
             for (let i: number = 0; i < bufferLength; i++) {
-                let value: number = dataArray[i] - 128.0;
-                let absValue: number = Math.abs(value);
-                if (absValue < bufferMin) {
-                    bufferMin = absValue;
-                }
+                let absValue: number = Math.abs(dataArray[i] - 128.0);
                 if (absValue > bufferMax) {
                     bufferMax = absValue;
                 }
-            }
-            if (bufferMin < waa.minVolume) {
-                waa.minVolume = bufferMin;
             }
             if (bufferMax > waa.maxVolume) {
                 waa.maxVolume = bufferMax;
             }
             waa.currentVolume = bufferMax;
             
-            // console.log(dataArray[0] + ', min=' + waa.minVolume + ', max=' + waa.maxVolume+', vol='+waa.currentVolume);
-            // waa.onChangeCallback && waa.onChangeCallback(waa.currentVolume);
             waa.onChangeCallback && waa.onChangeCallback();
 
             setTimeout(repeat, waa.monitorTimeoutMsec);
         }
+        */
     }
 
     startRecording() {
