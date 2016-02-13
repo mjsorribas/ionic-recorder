@@ -1,5 +1,8 @@
 /*
  * range-input.scss
+ *
+ * Based on article and less code (first converted using less2sass) at:
+ * https://css-tricks.com/styling-cross-browser-compatible-range-inputs-css/
  */
 
 $thumb-radius: 15px;
@@ -55,8 +58,10 @@ input[type=range] {
     -webkit-appearance: none;
     margin: $thumb-height/2 0;
     width: $track-width;
-    background: black;
+    background: $background-color;
     border: 0;
+    display: block;
+    width: 100%;
 
     &:focus {
         outline: none;
