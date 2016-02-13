@@ -48,7 +48,7 @@ export class VuGauge {
     resetInterval() {
         if (this.rate) {
             let intervalMsec: number = 1000.0 / (1.0 * this.rate);
-            console.log('resetInterval(): '+intervalMsec);
+            // console.log('resetInterval(): '+intervalMsec);
             setInterval(() => {
                 this.ref.markForCheck();
             }, intervalMsec);
@@ -91,7 +91,7 @@ export class VuGauge {
                 // console.log('VuGauge:ngOnChanges: max');
             }
             else if (change === 'rate') {
-                console.log('VuGauge:ngOnChanges: rate, this.rate='+this.rate);
+                // console.log('VuGauge:ngOnChanges: rate, this.rate='+this.rate);
                 this.resetInterval();
             }
         }

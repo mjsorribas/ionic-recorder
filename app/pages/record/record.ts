@@ -10,15 +10,15 @@ import {WebAudioAPI} from '../../providers/web-audio-api';
     directives: [VuGauge]
 })
 export class RecordPage {
-    sliderValue: number;
-    notYetStarted: boolean;
-    recordingTime: string;
-    recordButtonIcon: string;
-    stopButtonIcon: string;
-    stopButtonDisabled: boolean;
-    gain: number;
-    currentVolume: number;
-    platformClass: string;
+    private sliderValue: number;
+    private notYetStarted: boolean;
+    private recordingTime: string;
+    private recordButtonIcon: string;
+    private stopButtonIcon: string;
+    private stopButtonDisabled: boolean;
+    private gain: number;
+    private currentVolume: number;
+    private platformClass: string;
 
     constructor(private waa: WebAudioAPI, private platform: Platform) {
         if (this.platform.is('core')) {
