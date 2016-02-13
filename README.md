@@ -3,6 +3,7 @@ Sound recording mobile / browser hybrid app, based on the Ionic framework and th
 
 ## Introduction
 
-This app showcases a few capabilities of
+This app showcases the combination of:
 * Ionic 2.x
 * Web Audio Interface
+
