@@ -12,7 +12,7 @@ This app combines
 
 to build
 * A simple recording app (hybrid app that can run either in your browser or as a native app - ios or android)
-* Real-time recording quality stats and analysis
+* Useful real-time real-time visualizations, stats and data-analysis
 
 
 ## Requirements
