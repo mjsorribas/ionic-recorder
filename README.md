@@ -14,5 +14,4 @@ to build
 
 
 ## Requirements
-* This apps runs only in browsers that implement  
-  [MediaRecorder](https://developer.mozilla.org/en-US/docs/Web/API/MediaRecorder_API).
+* This apps runs only in browsers that implement [MediaRecorder](https://developer.mozilla.org/en-US/docs/Web/API/MediaRecorder_API).
