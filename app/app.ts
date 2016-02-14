@@ -5,7 +5,7 @@ import {HSV} from './providers/hsv';
 import {AppState} from './providers/app-state';
 import {WebAudioAPI} from './providers/web-audio-api';
 
-enableProdMode();
+// enableProdMode();
 
 @App({
     templateUrl: 'build/app.html',
