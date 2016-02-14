@@ -20,14 +20,12 @@ export class RecordPage {
     private gain: number;
     private currentVolume: number;
     private maxVolume: number;
-    private platformClass: string;
     private nSamplesAnalysed: number;
     private nMaxPeaks: number;
 
     constructor(private waa: WebAudioAPI, private platform: Env) {
         console.log('constructor():RecordPage - running in ' + this.platform.name);
         
-        this.platformClass = this.platform.name;
         this.gain = 29;
         this.sliderValue = 33;
         this.notYetStarted = true;

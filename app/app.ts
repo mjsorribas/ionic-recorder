@@ -1,12 +1,10 @@
 import {App, IonicApp} from 'ionic-framework/ionic';
+import {Type} from 'angular2/core';
 import {TabsPage} from './pages/tabs/tabs';
 import {HSV} from './providers/colormap';
 import {AppState} from './providers/app-state';
 import {WebAudioAPI} from './providers/web-audio-api';
 import {Env} from './providers/utils';
-
-// https://angular.io/docs/ts/latest/api/core/Type-interface.html
-import {Type} from 'angular2/core';
 
 
 @App({
@@ -19,22 +17,14 @@ import {Type} from 'angular2/core';
 class MyApp {
     // make HelloIonicPage the root (or first) page
     private rootPage: Type = TabsPage;
-    // pages: Array<{ title: string, component: Type, hide: boolean }>;
-    private platformClass: string;
+    // private platformClass: string;
 
     constructor(private app: IonicApp, private platform: Env) {
         console.log('constructor():MyApp - running in ' + this.platform.name);
 
         this.initializeApp();
 
-        // set our app's pages
-        // this.pages = [
-        //     { title: 'Login', component: null, hide: true },
-        //     { title: 'Signup', component: null, hide: true },
-        //     { title: 'Logout', component: null, hide: true }
-        // ];
-
-        this.platformClass = this.platform.name;
+        // this.platformClass = this.platform.name;
     }
 
     initializeApp() {
@@ -55,13 +45,5 @@ class MyApp {
             // StatusBar.setStyle(StatusBar.LIGHT_CONTENT)
             // console.log('App:this.platform.ready!');
         });
-    }
-
-    openPage(page) {
-        // close the menu when clicking a link from the menu
-        this.app.getComponent('leftMenu').close();
-        // navigate to the new page if it is not the current page
-        let nav = this.app.getComponent('nav');
-        nav.setRoot(page.component);
     }
 }

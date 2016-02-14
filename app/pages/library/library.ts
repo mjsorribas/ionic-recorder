@@ -1,4 +1,4 @@
-import {IonicApp, Page, Modal, Alert, NavController, Platform} from 'ionic-framework/ionic';
+import {IonicApp, Page, Modal, Alert, NavController} from 'ionic-framework/ionic';
 import {RecordPage} from '../record/record';
 import {LibraryFilterPage} from '../library-filter/library-filter';
 import {Env} from '../../providers/utils';
@@ -18,12 +18,10 @@ export class LibraryPage {
     private filterTracks: Array<any>;
     private placeholder: string;
     private segment: string;
-    private platformClass: string;
 
     constructor(private app: IonicApp, private nav: NavController, private platform: Env) {
         console.log('constructor():LibraryPage - running in ' + this.platform.name);
         
-        this.platformClass = this.platform.name;
         this.items = [];
         this.nResults = 0;
         this.dayIndex = 0;

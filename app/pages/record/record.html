@@ -7,7 +7,7 @@
     </ion-title>
 </ion-navbar>
 
-<ion-content padding [class]="platformClass">
+<ion-content padding [class]="platform.name">
     <p class="item-label">Mic Volume: <span *ngIf="maxVolume > 1">{{nMaxPeaks}} peaks at max ({{maxVolume}})</span></p>
     <vu-gauge bgcolor="#fff" height="2.5em" nbars="55" min="0" max="128" rate="20" [value]="currentVolume"></vu-gauge>
     <p class="item-label">Gain: {{gain}}%</p>

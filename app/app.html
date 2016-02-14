@@ -4,7 +4,7 @@
         <ion-title>Pages</ion-title>
     </ion-toolbar>
 
-    <ion-content [class]="platformClass">
+    <ion-content [class]="platform.name">
         <ion-list>
             <ion-item menuClose class="menu-item" (click)="app.getComponent('tabs').select(0)">
                 Record
