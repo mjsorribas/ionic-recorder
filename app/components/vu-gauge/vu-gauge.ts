@@ -1,15 +1,17 @@
 import {Component, Input, ChangeDetectionStrategy, ChangeDetectorRef, OnChanges} from 'angular2/core';
 import {HSV} from '../../providers/colormap';
 
+
 interface LED {
     x: string;
     fill: string;
 }
 
+
 /**
  * @name VuGauge
  * @description
- * Looks like an LED display on mixer boards and stereo receivers that has LEDS which light up to monitor a changing signal, e.g. microphone audio volume, in real-time.
+ * A display with "LEDS" that light up to monitor a changing signal in real-time.
  */
 @Component({
     // using OnPush strategy to keep a big chunk of the change-detection tree
@@ -48,10 +50,11 @@ export class VuGauge {
     resetInterval() {
         if (this.rate) {
             let intervalMsec: number = 1000.0 / (1.0 * this.rate);
-            // console.log('resetInterval(): '+intervalMsec);
+
             setInterval(() => {
                 this.ref.markForCheck();
             }, intervalMsec);
+            
         }
         else {
             console.log('WARNING: no this.rate!');
@@ -75,7 +78,6 @@ export class VuGauge {
     ngOnChanges(changeRecord) {
         for (var change in changeRecord) {
             if (change === 'value' && this.leds.length > 0) {
-                // console.log('VuGauge:ngOnChanges: value');
                 for (let i: number = 0; i < this.nbars; i++) {
                     let fill: string;
                     if (this.min + this.valueStep * i <= this.value) {
@@ -88,10 +90,8 @@ export class VuGauge {
                 }
             }
             else if (change === 'max') {
-                // console.log('VuGauge:ngOnChanges: max');
             }
             else if (change === 'rate') {
-                // console.log('VuGauge:ngOnChanges: rate, this.rate='+this.rate);
                 this.resetInterval();
             }
         }

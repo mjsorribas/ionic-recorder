@@ -18,6 +18,9 @@ export class LibraryFilterPage {
     }
 
     dismiss(data) {
-        console.log('dismissFilters():LibraryFilterPage');        
+        console.log('dismissFilters():LibraryFilterPage');            
+        // using the injected ViewController this page
+        // can "dismiss" itself and pass back data
+        // this.viewCtrl.dismiss(data);
     }
 }

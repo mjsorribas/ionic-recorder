@@ -13,7 +13,6 @@ export class WebAudioAPI {
     monitorRate: number;
     currentVolume: number;
     maxVolume: number;
-    onChangeCallback: () => void;
     nSamplesAnalysed: number;
     nMaxPeaks: number;
 
@@ -23,7 +22,7 @@ export class WebAudioAPI {
         this.chunks = [];
         this.currentVolume = 0;
         this.maxVolume = 0;
-        this.monitorRate = 10;
+        this.monitorRate = 40;
         this.nSamplesAnalysed = 0;
         this.nMaxPeaks = 0;
 
@@ -36,11 +35,10 @@ export class WebAudioAPI {
     }
 
     newerAudioInit() {
-        // console.log('getUserMedia == mediaDevices.getUserMedia()');
-        // newer Firefox - we know it has MediaRecorder
         navigator.mediaDevices.getUserMedia({ audio: true })
             .then((stream: MediaStream) => {
                 this.stream = stream;
+                // newer Firefox - we know it has MediaRecorder
                 this.mediaRecorder = new MediaRecorder(stream);
                 this.monitorStream(stream);
                 console.log('mediaDevices.getUserMedia(): SUCCESS! mediaRecorder == ' + this.mediaRecorder);
@@ -76,13 +74,13 @@ export class WebAudioAPI {
     }
 
     monitorStream(stream: MediaStream) {
-        // console.log('monitorStream');
         this.source = this.audioContext.createMediaStreamSource(stream);
         let analyser: AnalyserNode = this.audioContext.createAnalyser();
         analyser.fftSize = 2048;
         let bufferLength: number = analyser.frequencyBinCount;
         let dataArray: Uint8Array = new Uint8Array(bufferLength);
         this.source.connect(analyser);
+
         setInterval(() => {
             analyser.getByteTimeDomainData(dataArray);
             let bufferMax: number = 0;
@@ -101,8 +99,6 @@ export class WebAudioAPI {
                 this.maxVolume = bufferMax;
             }
             this.currentVolume = bufferMax;
-
-            this.onChangeCallback && this.onChangeCallback();
         }, 1000.0 / (1.0 * this.monitorRate));
     }
 

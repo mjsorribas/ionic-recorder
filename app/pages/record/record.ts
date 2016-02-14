@@ -18,27 +18,15 @@ export class RecordPage {
     private stopButtonIcon: string;
     private stopButtonDisabled: boolean;
     private gain: number;
-    private currentVolume: number;
-    private maxVolume: number;
-    private nSamplesAnalysed: number;
-    private nMaxPeaks: number;
+
 
     constructor(private waa: WebAudioAPI, private platform: Env) {
-        console.log('constructor():RecordPage - running in ' + this.platform.name);
-        
+        console.log('constructor():RecordPage');
         this.gain = 29;
         this.sliderValue = 33;
         this.notYetStarted = true;
         this.recordingTime = "00:00:00:00";
         this.recordButtonIcon = 'mic';
-        this.nSamplesAnalysed = 0;
-        this.nMaxPeaks = 0;
-        this.waa.onChangeCallback = () => {
-            this.currentVolume = this.waa.currentVolume;
-            this.maxVolume = this.waa.maxVolume;
-            this.nSamplesAnalysed = this.waa.nSamplesAnalysed;
-            this.nMaxPeaks = this.waa.nMaxPeaks;
-        }
     }
 
     onSliderDrag($event) {

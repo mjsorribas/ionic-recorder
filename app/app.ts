@@ -1,11 +1,12 @@
 import {App, IonicApp} from 'ionic-framework/ionic';
-import {Type} from 'angular2/core';
+import {Type, enableProdMode} from 'angular2/core';
 import {TabsPage} from './pages/tabs/tabs';
 import {HSV} from './providers/colormap';
 import {AppState} from './providers/app-state';
 import {WebAudioAPI} from './providers/web-audio-api';
 import {Env} from './providers/utils';
 
+enableProdMode();
 
 @App({
     templateUrl: 'build/app.html',
@@ -17,14 +18,10 @@ import {Env} from './providers/utils';
 class MyApp {
     // make HelloIonicPage the root (or first) page
     private rootPage: Type = TabsPage;
-    // private platformClass: string;
 
     constructor(private app: IonicApp, private platform: Env) {
-        console.log('constructor():MyApp - running in ' + this.platform.name);
-
+        console.log('constructor():MyApp');
         this.initializeApp();
-
-        // this.platformClass = this.platform.name;
     }
 
     initializeApp() {
