@@ -3,8 +3,6 @@ Sound recording mobile / browser hybrid app, based on the Ionic framework and th
 
 ## Introduction
 
-This is an open-source project that intends to improve the code with the help of the community.
-
 This app combines
 * [Ionic 2.x](http://ionicframework.com/docs/v2/)
 * [Web Audio Interface](https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API) and 
@@ -16,5 +14,5 @@ to build
 
 
 ## Requirements
-* Only a Firefox browser is supported currently because it's the only one that implements 
-  [MediaRecorder](https://developer.mozilla.org/en-US/docs/Web/API/MediaRecorder_API)
+* This apps runs only in browsers that implement  
+  [MediaRecorder](https://developer.mozilla.org/en-US/docs/Web/API/MediaRecorder_API).
