@@ -26,10 +26,10 @@ export class WebAudioAPI {
         this.nSamplesAnalysed = 0;
         this.nMaxPeaks = 0;
 
-        if (navigator.mediaDevices.getUserMedia) {
+        if (navigator.mediaDevices) {
             this.newerAudioInit();
         }
-        else if (!navigator.getUserMedia) {
+        else {
             this.olderAudioInit();
         }
     }
