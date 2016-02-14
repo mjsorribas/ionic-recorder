@@ -1,16 +1,15 @@
-import {App, IonicApp} from 'ionic-framework/ionic';
+import {App, IonicApp, Platform} from 'ionic-framework/ionic';
 import {Type, enableProdMode} from 'angular2/core';
 import {TabsPage} from './pages/tabs/tabs';
-import {HSV} from './providers/colormap';
+import {HSV} from './providers/hsv';
 import {AppState} from './providers/app-state';
 import {WebAudioAPI} from './providers/web-audio-api';
-import {Env} from './providers/utils';
 
 enableProdMode();
 
 @App({
     templateUrl: 'build/app.html',
-    providers: [HSV, AppState, WebAudioAPI, Env],
+    providers: [HSV, AppState, WebAudioAPI],
     config: {
         backButtonText: ''
     }
@@ -19,7 +18,7 @@ class MyApp {
     // make HelloIonicPage the root (or first) page
     private rootPage: Type = TabsPage;
 
-    constructor(private app: IonicApp, private platform: Env) {
+    constructor(private app: IonicApp, private platform: Platform) {
         console.log('constructor():MyApp');
         this.initializeApp();
     }

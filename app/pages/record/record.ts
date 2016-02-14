@@ -1,9 +1,8 @@
-import {Page, Modal, Alert, NavController} from 'ionic-framework/ionic';
+import {Page, Modal, Alert, NavController, Platform} from 'ionic-framework/ionic';
 import {LibraryPage} from '../library/library';
 import {VuGauge} from '../../components/vu-gauge/vu-gauge';
 import {AppState} from '../../providers/app-state';
 import {WebAudioAPI} from '../../providers/web-audio-api';
-import {Env} from '../../providers/utils';
 
 
 @Page({
@@ -20,7 +19,7 @@ export class RecordPage {
     private gain: number;
 
 
-    constructor(private waa: WebAudioAPI, private platform: Env) {
+    constructor(private webAudioAPI: WebAudioAPI, private platform: Platform) {
         console.log('constructor():RecordPage');
         this.gain = 29;
         this.sliderValue = 33;
@@ -53,23 +52,23 @@ export class RecordPage {
     }
 
     pauseRecord() {
-        this.waa.pauseRecording();
+        this.webAudioAPI.pauseRecording();
         this.recordButtonIcon = 'mic';
     }
 
     stopRecord() {
-        this.waa.stopRecording();
+        this.webAudioAPI.stopRecording();
         this.notYetStarted = true;
         this.recordButtonIcon = 'mic';
     }
 
     startRecord() {
         if (this.notYetStarted) {
-            this.waa.startRecording();
+            this.webAudioAPI.startRecording();
             this.notYetStarted = false;
         }
         else {
-            this.waa.resumeRecording();
+            this.webAudioAPI.resumeRecording();
         }
         this.recordButtonIcon = 'pause';
     }

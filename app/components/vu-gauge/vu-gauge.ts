@@ -1,5 +1,5 @@
 import {Component, Input, ChangeDetectionStrategy, ChangeDetectorRef, OnChanges} from 'angular2/core';
-import {HSV} from '../../providers/colormap';
+import {HSV} from '../../providers/hsv';
 
 
 interface LED {
