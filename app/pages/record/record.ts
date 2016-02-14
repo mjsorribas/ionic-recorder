@@ -42,6 +42,8 @@ export class RecordPage {
     }
 
     onSliderDrag($event) {
+        // Fixes slider not dragging in Firefox, as described in:
+        // https://forum.ionicframework.com/t/range-input-input-type-range-slider-not-dragging-in-firefox/43186
         $event.stopPropagation();
     }
 

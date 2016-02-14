@@ -21,7 +21,7 @@ export class LibraryPage {
 
     constructor(private app: IonicApp, private nav: NavController, private platform: Env) {
         console.log('constructor():LibraryPage - running in ' + this.platform.name);
-        
+
         this.items = [];
         this.nResults = 0;
         this.dayIndex = 0;

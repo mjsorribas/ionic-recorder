@@ -3,11 +3,13 @@ import {RecordPage} from '../record/record';
 import {LibraryPage} from '../library/library';
 import {Type} from 'angular2/core';
 
+
 // since the original type definitions file does not have element.style
 // we extend it here to avoid Typescript compile errors, use to cast
 interface MyElement extends Element {
     style?: any;
 }
+
 
 @Page({
     templateUrl: 'build/pages/tabs/tabs.html'
