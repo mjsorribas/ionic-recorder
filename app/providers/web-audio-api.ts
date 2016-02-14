@@ -45,6 +45,7 @@ export class WebAudioAPI {
             })
             .catch(function(error) {
                 console.log('mediaDevices.getUserMedia(): ERROR: ' + error);
+                alert('MD err 1 '+error.message);
             });
     }
 
@@ -62,14 +63,17 @@ export class WebAudioAPI {
                     }
                     catch (error) {
                         console.log('ERROR: Cannot instantiate a MediaRecorder object: ' + error.message);
+                        alert('MD err 2 '+error.message);
                     }
                 },
                 function(error) {
                     console.log('ERROR: getUserMedia(): ' + JSON.stringify(error));
+                    alert('MD err 3 '+error.message);
                 });
         }
         else {
             console.log('ERROR: getUserMedia not supported in this browser.');
+            alert('MD err 4');
         }
     }
 
