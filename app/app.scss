@@ -12,6 +12,9 @@ ion-menu {
             background: map-get($colors, darkest-gray);
             cursor: pointer;
         }
+        ion-list .item:first-child {
+            border: 0;
+        }
         ion-list .item-inner, ion-list .item:last-child {
             border-bottom: 0;
         }

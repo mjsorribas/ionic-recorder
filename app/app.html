@@ -6,18 +6,18 @@
 
     <ion-content [class]="platform.platforms()">
         <ion-list>
-            <ion-item menuClose (click)="app.getComponent('tabs').select(0)">
+            <button ion-item menuClose (click)="app.getComponent('tabs').select(0)">
                 Record
-            </ion-item>
-            <ion-item menuClose (click)="app.getComponent('tabs').select(1)">
+            </button>
+            <button ion-item menuClose (click)="app.getComponent('tabs').select(1)">
                 Library
-            </ion-item>
-            <ion-item menuClose>
+            </button>
+            <button ion-item menuClose>
                 Settings
-            </ion-item>
-            <ion-item menuClose>
+            </button>
+            <button ion-item menuClose>
                 About
-            </ion-item>
+            </button>
         </ion-list>
     </ion-content>
 
