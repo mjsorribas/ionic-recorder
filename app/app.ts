@@ -2,14 +2,13 @@ import {App, IonicApp, Platform} from 'ionic-framework/ionic';
 import {Type, enableProdMode} from 'angular2/core';
 import {TabsPage} from './pages/tabs/tabs';
 import {HSV} from './providers/hsv';
-import {AppState} from './providers/app-state';
 import {WebAudioAPI} from './providers/web-audio-api';
 
 // enableProdMode();
 
 @App({
     templateUrl: 'build/app.html',
-    providers: [HSV, AppState, WebAudioAPI],
+    providers: [HSV, WebAudioAPI],
     config: {
         backButtonText: ''
     }

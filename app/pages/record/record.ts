@@ -1,7 +1,6 @@
 import {Page, Modal, Alert, NavController, Platform} from 'ionic-framework/ionic';
 import {LibraryPage} from '../library/library';
 import {VuGauge} from '../../components/vu-gauge/vu-gauge';
-import {AppState} from '../../providers/app-state';
 import {WebAudioAPI} from '../../providers/web-audio-api';
 
 
