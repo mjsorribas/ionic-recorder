@@ -1,51 +1,36 @@
 import {IonicApp, Page, Modal, Alert, NavController, Platform} from 'ionic-framework/ionic';
 import {RecordPage} from '../record/record';
 import {LibraryFilterPage} from '../library-filter/library-filter';
+import {Env} from '../../providers/utils';
 
-// import {Observable} from 'rxjs/Observable';
-
-// import {WikipediaService} from '../../providers/wikipedia-service';
-// import {URLLibraryParams, Jsonp, ConnectionBackend} from 'angular2/http';
-
-// Based on LibraryPage and LibraryFilterPage
 
 @Page({
     templateUrl: 'build/pages/library/library.html',
     providers: []
 })
 export class LibraryPage {
-    items: Array<any>;
-    nResults: number;
-    dayIndex: number;
-    queryText: string;
-    prevQueryText: string;
-    excludeTracks: Array<any>;
-    filterTracks: Array<any>;
-    placeholder: string;
-    segment: string;
-    platformClass: string;
+    private items: Array<any>;
+    private nResults: number;
+    private dayIndex: number;
+    private queryText: string;
+    private prevQueryText: string;
+    private excludeTracks: Array<any>;
+    private filterTracks: Array<any>;
+    private placeholder: string;
+    private segment: string;
+    private platformClass: string;
 
-    constructor(private app: IonicApp, private nav: NavController, private platform: Platform) {
-        console.log('constructor():LibraryPage');
-
-        if (this.platform.is('core')) {
-            this.platformClass = 'browser';
-        } else if (this.platform.is('ios')) {
-            this.platformClass = 'ios';
-        } else if (this.platform.is('android')) {
-            this.platformClass = 'android';
-        }
-
+    constructor(private app: IonicApp, private nav: NavController, private platform: Env) {
+        console.log('constructor():LibraryPage - running in ' + this.platform.name);
+        
+        this.platformClass = this.platform.name;
         this.items = [];
-
         this.nResults = 0;
-
         this.dayIndex = 0;
         this.queryText = '';
         this.prevQueryText = '';
         this.excludeTracks = [];
         this.filterTracks = [];
-
         this.placeholder = 'Search library';
         this.segment = 'library';
         this.updateLibrary();

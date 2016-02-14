@@ -27,7 +27,6 @@ export class RecordPage {
     constructor(private waa: WebAudioAPI, private platform: Env) {
         console.log('constructor():RecordPage - running in ' + this.platform.name);
         
-        // console.log('tabBarElement: '+this.tabBarElement);
         this.platformClass = this.platform.name;
         this.gain = 29;
         this.sliderValue = 33;

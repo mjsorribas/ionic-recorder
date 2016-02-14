@@ -23,7 +23,7 @@ export class WebAudioAPI {
         this.chunks = [];
         this.currentVolume = 0;
         this.maxVolume = 0;
-        this.monitorRate = 60;
+        this.monitorRate = 10;
         this.nSamplesAnalysed = 0;
         this.nMaxPeaks = 0;
 
