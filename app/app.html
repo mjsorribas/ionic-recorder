@@ -1,21 +1,21 @@
 <ion-menu id="leftMenu" [content]="content">
 
     <ion-toolbar darkest-gray>
-        <ion-title>Pages</ion-title>
+        <ion-title>Navigate</ion-title>
     </ion-toolbar>
 
     <ion-content [class]="platform.platforms()">
         <ion-list>
-            <ion-item menuClose class="menu-item" (click)="app.getComponent('tabs').select(0)">
+            <ion-item menuClose (click)="app.getComponent('tabs').select(0)">
                 Record
             </ion-item>
-            <ion-item menuClose class="menu-item" (click)="app.getComponent('tabs').select(1)">
+            <ion-item menuClose (click)="app.getComponent('tabs').select(1)">
                 Library
             </ion-item>
-            <ion-item menuClose class="menu-item">
+            <ion-item menuClose>
                 Settings
             </ion-item>
-            <ion-item menuClose class="menu-item">
+            <ion-item menuClose>
                 About
             </ion-item>
         </ion-list>

@@ -8,11 +8,12 @@ ion-content.core {
 
 ion-menu {
     ion-content    { 
-        scroll-content, .menu-item {
+        scroll-content, ion-list .item {
             background: map-get($colors, darkest-gray);
-        }
-        .menu-item {
             cursor: pointer;
+        }
+        ion-list .item-inner, ion-list .item:last-child {
+            border-bottom: 0;
         }
     }
 }
