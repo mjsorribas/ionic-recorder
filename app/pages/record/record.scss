@@ -4,11 +4,14 @@
 
 p.item-label {
     margin-bottom: 0.2em;
+    color: map-get($colors, medium-gray);
 }
 
 .recording-time {
     text-align: center;
     font-size: 2.3em;
+    padding-bottom: 0.4em;
+    color: map-get($colors, light);
 }
 
 div.record-upload-buttons {

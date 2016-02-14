@@ -1,14 +1,23 @@
 <ion-menu id="leftMenu" [content]="content">
 
-    <ion-toolbar dark>
-        <ion-title>Settings</ion-title>
+    <ion-toolbar darkest-gray>
+        <ion-title>Pages</ion-title>
     </ion-toolbar>
 
     <ion-content [class]="platformClass">
         <ion-list>
-            <button ion-item *ngFor="#p of pages" (click)="openPage(p)" [hidden]="p.hide">
-                {{p.title}}
-            </button>
+            <ion-item menuClose class="menu-item" (click)="app.getComponent('tabs').select(0)">
+                Record
+            </ion-item>
+            <ion-item menuClose class="menu-item" (click)="app.getComponent('tabs').select(1)">
+                Library
+            </ion-item>
+            <ion-item menuClose class="menu-item">
+                Settings
+            </ion-item>
+            <ion-item menuClose class="menu-item">
+                About
+            </ion-item>
         </ion-list>
     </ion-content>
 

@@ -9,11 +9,14 @@ export class WebAudioAPI {
     private chunks: Array<Float32Array>;
     private source: MediaElementAudioSourceNode;
     private analyser: AnalyserNode;
+
     monitorRate: number;
     currentVolume: number;
     maxVolume: number;
     onChangeCallback: () => void;
-    
+    nSamplesAnalysed: number;
+    nMaxPeaks: number;
+
     constructor() {
         console.log('constructor():WebAudioApi');
         this.audioContext = new (window.AudioContext || window.webkitAudioContext)();
@@ -21,6 +24,9 @@ export class WebAudioAPI {
         this.currentVolume = 0;
         this.maxVolume = 0;
         this.monitorRate = 60;
+        this.nSamplesAnalysed = 0;
+        this.nMaxPeaks = 0;
+
         if (navigator.mediaDevices.getUserMedia) {
             this.newerAudioInit();
         }
@@ -79,20 +85,25 @@ export class WebAudioAPI {
         this.source.connect(analyser);
         setInterval(() => {
             analyser.getByteTimeDomainData(dataArray);
-            let bufferMax = 0;
+            let bufferMax: number = 0;
             for (let i: number = 0; i < bufferLength; i++) {
                 let absValue: number = Math.abs(dataArray[i] - 128.0);
-                if (absValue > bufferMax) {
+                if (absValue === this.maxVolume && this.maxVolume > 1) {
+                    this.nMaxPeaks += 1;
+                }
+                else if (absValue > bufferMax) {
                     bufferMax = absValue;
                 }
+                this.nSamplesAnalysed += 1;
             }
             if (bufferMax > this.maxVolume) {
+                this.nMaxPeaks = 1;
                 this.maxVolume = bufferMax;
             }
             this.currentVolume = bufferMax;
-            
+
             this.onChangeCallback && this.onChangeCallback();
-        }, 1000.0/(1.0*this.monitorRate));
+        }, 1000.0 / (1.0 * this.monitorRate));
     }
 
     startRecording() {

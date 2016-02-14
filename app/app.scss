@@ -3,5 +3,17 @@
 ion-content.browser {
     scroll-content {
         overflow-y: hidden;
+        
+    }
+}
+
+ion-menu {
+    ion-content    { 
+        scroll-content, .menu-item {
+            background: map-get($colors, darkest-gray);
+        }
+        .menu-item {
+            cursor: pointer;
+        }
     }
 }

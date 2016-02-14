@@ -12,9 +12,9 @@ export class HSV {
         h = h / 60.0;
         i = Math.floor(h);
         f = h - i;
-        p = v * (1 - s);
-        q = v * (1 - s * f);
-        t = v * (1 - s * (1 - f));
+        p = v * (1.0 - s);
+        q = v * (1.0 - s * f);
+        t = v * (1.0 - s * (1.0 - f));
 
         switch (i) {
             case 0: r = v, g = t, b = p; break;

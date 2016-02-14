@@ -1,8 +1,9 @@
-import {Page, Modal, Alert, NavController, Platform} from 'ionic-framework/ionic';
+import {Page, Modal, Alert, NavController} from 'ionic-framework/ionic';
 import {LibraryPage} from '../library/library';
 import {VuGauge} from '../../components/vu-gauge/vu-gauge';
 import {AppState} from '../../providers/app-state';
 import {WebAudioAPI} from '../../providers/web-audio-api';
+import {Env} from '../../providers/utils';
 
 
 @Page({
@@ -18,26 +19,28 @@ export class RecordPage {
     private stopButtonDisabled: boolean;
     private gain: number;
     private currentVolume: number;
+    private maxVolume: number;
     private platformClass: string;
+    private nSamplesAnalysed: number;
+    private nMaxPeaks: number;
 
-    constructor(private waa: WebAudioAPI, private platform: Platform) {
-        if (this.platform.is('core')) {
-            this.platformClass = 'browser';
-        } else if (this.platform.is('ios')) {
-            this.platformClass = 'ios';
-        } else if (this.platform.is('android')) {
-            this.platformClass = 'android';
-        }
-
-        console.log('constructor():RecordPage - running in ' + this.platformClass);
+    constructor(private waa: WebAudioAPI, private platform: Env) {
+        console.log('constructor():RecordPage - running in ' + this.platform.name);
+        
+        // console.log('tabBarElement: '+this.tabBarElement);
+        this.platformClass = this.platform.name;
         this.gain = 29;
         this.sliderValue = 33;
         this.notYetStarted = true;
         this.recordingTime = "00:00:00:00";
         this.recordButtonIcon = 'mic';
-
+        this.nSamplesAnalysed = 0;
+        this.nMaxPeaks = 0;
         this.waa.onChangeCallback = () => {
             this.currentVolume = this.waa.currentVolume;
+            this.maxVolume = this.waa.maxVolume;
+            this.nSamplesAnalysed = this.waa.nSamplesAnalysed;
+            this.nMaxPeaks = this.waa.nMaxPeaks;
         }
     }
 

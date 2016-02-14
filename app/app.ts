@@ -1,8 +1,9 @@
-import {App, IonicApp, Platform} from 'ionic-framework/ionic';
+import {App, IonicApp} from 'ionic-framework/ionic';
 import {TabsPage} from './pages/tabs/tabs';
 import {HSV} from './providers/colormap';
 import {AppState} from './providers/app-state';
 import {WebAudioAPI} from './providers/web-audio-api';
+import {Env} from './providers/utils';
 
 // https://angular.io/docs/ts/latest/api/core/Type-interface.html
 import {Type} from 'angular2/core';
@@ -10,34 +11,30 @@ import {Type} from 'angular2/core';
 
 @App({
     templateUrl: 'build/app.html',
-    providers: [HSV, AppState, WebAudioAPI],
+    providers: [HSV, AppState, WebAudioAPI, Env],
     config: {
         backButtonText: ''
     }
 })
 class MyApp {
     // make HelloIonicPage the root (or first) page
-    rootPage: Type = TabsPage;
-    pages: Array<{ title: string, component: Type, hide: boolean }>;
-    platformClass: string;
+    private rootPage: Type = TabsPage;
+    // pages: Array<{ title: string, component: Type, hide: boolean }>;
+    private platformClass: string;
 
-    constructor(private app: IonicApp, private platform: Platform) {
+    constructor(private app: IonicApp, private platform: Env) {
+        console.log('constructor():MyApp - running in ' + this.platform.name);
+
         this.initializeApp();
 
         // set our app's pages
-        this.pages = [
-            { title: 'Login', component: null, hide: true },
-            { title: 'Signup', component: null, hide: true },
-            { title: 'Logout', component: null, hide: true }
-        ];
+        // this.pages = [
+        //     { title: 'Login', component: null, hide: true },
+        //     { title: 'Signup', component: null, hide: true },
+        //     { title: 'Logout', component: null, hide: true }
+        // ];
 
-        if (this.platform.is('core')) {
-            this.platformClass = 'browser';
-        } else if (this.platform.is('ios')) {
-            this.platformClass = 'ios';
-        } else if (this.platform.is('android')) {
-            this.platformClass = 'android';
-        }
+        this.platformClass = this.platform.name;
     }
 
     initializeApp() {
