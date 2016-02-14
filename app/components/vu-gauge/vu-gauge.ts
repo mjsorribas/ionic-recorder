@@ -2,7 +2,7 @@ import {Component, Input, ChangeDetectionStrategy, ChangeDetectorRef, OnChanges}
 import {HSV} from '../../providers/hsv';
 
 
-interface LED {
+interface LEDRect {
     x: string;
     fill: string;
     strokeWidth: string;
@@ -12,7 +12,10 @@ interface LED {
 /**
  * @name VuGauge
  * @description
- * A display with "LEDS" that light up to monitor a changing signal in real-time.
+ * An LED lights display that light up to monitor a changing signal in real-time.
+ * This display is a 100% width horizontal rectangle willed with small vertical
+ * rectangles that are the LEDs.  Thes LEDs show up either dark state or lit up,
+ * depending on the input value.
  */
 @Component({
     // using OnPush strategy to keep a big chunk of the change-detection tree
@@ -23,7 +26,7 @@ interface LED {
     selector: 'vu-gauge',
     template: ['<svg fill="rgba(0,0,0,0)" width="100%" [attr.height]="height">',
         '           <rect width="100%" [attr.height]="height" />',
-        '           <rect *ngFor="#led of leds"',
+        '           <rect *ngFor="#led of ledRects"',
         '                 [attr.width]="ledWidth"',
         '                 [attr.height]="height"',
         '                 [attr.x]="led.x"',
@@ -41,7 +44,7 @@ export class VuGauge {
     @Input() private value: number;
     @Input() private rate: number;
     private ledWidth: string;
-    private leds: Array<LED>;
+    private ledRects: Array<LEDRect>;
     private hStep: number;
     private valueStep: number;
 
@@ -50,7 +53,7 @@ export class VuGauge {
 
     constructor(private hsv: HSV, private ref: ChangeDetectorRef) {
         console.log('constructor():VuGauge');
-        this.leds = [];
+        this.ledRects = [];
         this.maxValue = 0;
         this.maxValueIndex = 0;
     }
@@ -75,7 +78,7 @@ export class VuGauge {
         let xStep: number = 2.0 * percentWidth;
         this.hStep = 120.0 / (this.nbars - 1.0);
         for (let i: number = 0; i < this.nbars; i++) {
-            this.leds.push({
+            this.ledRects.push({
                 x: (i * xStep) + '%',
                 fill: this.hsv.toRGB(120.0 - i * this.hStep, 1.0, 0.3),
                 strokeWidth: "0"
@@ -86,7 +89,7 @@ export class VuGauge {
 
     ngOnChanges(changeRecord) {
         for (var change in changeRecord) {
-            if (change === 'value' && this.leds.length > 0) {
+            if (change === 'value' && this.ledRects.length > 0) {
                 for (let i: number = 0; i < this.nbars; i++) {
                     let fill: string;
                     let strokeWidth: string;
@@ -97,14 +100,14 @@ export class VuGauge {
                     else {
                         fill = this.hsv.toRGB(120.0 - i * this.hStep, 1.0, 0.3);
                     }
-                    this.leds[i].fill = fill;
-                    this.leds[i].strokeWidth = "0";
+                    this.ledRects[i].fill = fill;
+                    this.ledRects[i].strokeWidth = "0";
                 }
                 if (this.value >= this.maxValue) {
                     this.maxValue = this.value;
                     this.maxValueIndex = Math.floor((this.value - this.min) / this.valueStep);
                 }
-                this.leds[this.maxValueIndex].strokeWidth = "1";
+                this.ledRects[this.maxValueIndex].strokeWidth = "1";
             }
             else if (change === 'max') {
             }
