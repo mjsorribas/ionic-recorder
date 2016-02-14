@@ -13,7 +13,7 @@ interface LEDRect {
  * @name VuGauge
  * @description
  * An LED lights display that light up to monitor a changing signal in real-time.
- * This display is a 100% width horizontal rectangle willed with small vertical
+ * This display is a width:100% horizontal rectangle willed with small vertical
  * rectangles that are the LEDs.  Thes LEDs show up either dark state or lit up,
  * depending on the input value.
  */
