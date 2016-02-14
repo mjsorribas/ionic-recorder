@@ -5,6 +5,7 @@ import {HSV} from '../../providers/colormap';
 interface LED {
     x: string;
     fill: string;
+    strokeWidth: string;
 }
 
 
@@ -26,6 +27,8 @@ interface LED {
         '                 [attr.width]="ledWidth"',
         '                 [attr.height]="height"',
         '                 [attr.x]="led.x"',
+        '                 [attr.stroke-width]="led.strokeWidth"',
+        '                 stroke="rgb(255, 255, 255)"',
         '                 [attr.fill]="led.fill" />',
         '      </svg>'].join('')
 })
@@ -42,9 +45,14 @@ export class VuGauge {
     private hStep: number;
     private valueStep: number;
 
+    private maxValue: number;
+    private maxValueIndex: number;
+
     constructor(private hsv: HSV, private ref: ChangeDetectorRef) {
         console.log('constructor():VuGauge');
         this.leds = [];
+        this.maxValue = 0;
+        this.maxValueIndex = 0;
     }
 
     resetInterval() {
@@ -54,7 +62,7 @@ export class VuGauge {
             setInterval(() => {
                 this.ref.markForCheck();
             }, intervalMsec);
-            
+
         }
         else {
             console.log('WARNING: no this.rate!');
@@ -69,7 +77,8 @@ export class VuGauge {
         for (let i: number = 0; i < this.nbars; i++) {
             this.leds.push({
                 x: (i * xStep) + '%',
-                fill: this.hsv.toRGB(120.0 - i * this.hStep, 1.0, 0.3)
+                fill: this.hsv.toRGB(120.0 - i * this.hStep, 1.0, 0.3),
+                strokeWidth: "0"
             });
         }
         this.valueStep = (1.0 * (this.max - this.min)) / (this.nbars - 1.0);
@@ -80,6 +89,8 @@ export class VuGauge {
             if (change === 'value' && this.leds.length > 0) {
                 for (let i: number = 0; i < this.nbars; i++) {
                     let fill: string;
+                    let strokeWidth: string;
+
                     if (this.min + this.valueStep * i <= this.value) {
                         fill = this.hsv.toRGB(120.0 - i * this.hStep, 1.0, 1.0);
                     }
@@ -87,7 +98,13 @@ export class VuGauge {
                         fill = this.hsv.toRGB(120.0 - i * this.hStep, 1.0, 0.3);
                     }
                     this.leds[i].fill = fill;
+                    this.leds[i].strokeWidth = "0";
                 }
+                if (this.value >= this.maxValue) {
+                    this.maxValue = this.value;
+                    this.maxValueIndex = Math.floor((this.value - this.min) / this.valueStep);
+                }
+                this.leds[this.maxValueIndex].strokeWidth = "1";
             }
             else if (change === 'max') {
             }

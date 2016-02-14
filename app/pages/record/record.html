@@ -8,11 +8,10 @@
 </ion-navbar>
 
 <ion-content padding [class]="platform.name">
-    <p class="item-label">Mic Volume: <span *ngIf="waa.maxVolume > 1">{{waa.nMaxPeaks}} peaks at max ({{waa.maxVolume}})</span></p>
+    <p class="item-label">Mic Volume: <span *ngIf="waa.maxVolume > 1">{{waa.nMaxPeaks}} peaks at max</span></p>
     <vu-gauge bgcolor="#fff" height="2.5em" nbars="55" min="0" max="128" rate="20" [value]="waa.currentVolume"></vu-gauge>
     <p class="item-label">Gain: {{gain}}%</p>
-    <input type="range" min="0" max="100" [value]="sliderValue" (input)="onSliderChange($event)" (touchstart)="onSliderDrag($event)"
-    (mousedown)="onSliderDrag($event)">
+    <input type="range" min="0" max="100" [value]="sliderValue" (input)="onSliderChange($event)" (touchstart)="onSliderDrag($event)" (mousedown)="onSliderDrag($event)">
 
     <div class="recording-time">{{recordingTime}}</div>
     <div class="record-upload-buttons">
