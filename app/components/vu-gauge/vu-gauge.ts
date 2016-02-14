@@ -59,17 +59,10 @@ export class VuGauge {
     }
 
     resetInterval() {
-        if (this.rate) {
-            let intervalMsec: number = 1000.0 / (1.0 * this.rate);
-
-            setInterval(() => {
-                this.ref.markForCheck();
-            }, intervalMsec);
-
-        }
-        else {
-            console.log('WARNING: no this.rate!');
-        }
+        let intervalMsec: number = 1000.0 / (1.0 * this.rate);
+        setInterval(() => {
+            this.ref.markForCheck();
+        }, intervalMsec);
     }
 
     ngOnInit() {
