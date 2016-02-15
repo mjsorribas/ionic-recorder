@@ -6,6 +6,7 @@ import {Injectable} from 'angular2/core';
 @Injectable()
 export class WebAudioAPI {
     private audioContext: AudioContext;
+    private audioGainNode: AudioGainNode;
     private stream: MediaStream;
     private mediaRecorder: MediaRecorder;
     private chunks: Array<Float32Array>;
@@ -21,6 +22,7 @@ export class WebAudioAPI {
     constructor() {
         console.log('constructor():WebAudioApi');
         this.audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        this.audioGainNode = this.audioContext.createGain();
         this.chunks = [];
         this.currentVolume = 0;
         this.maxVolume = 0;
@@ -81,12 +83,18 @@ export class WebAudioAPI {
 
     monitorStream(stream: MediaStream) {
         this.source = this.audioContext.createMediaStreamSource(stream);
+        
+        this.source.connect(this.audioGainNode);
+        this.audioGainNode.connect(this.audioContext.destination);
+        
         let analyser: AnalyserNode = this.audioContext.createAnalyser();
         analyser.fftSize = 2048;
         let bufferLength: number = analyser.frequencyBinCount;
         let dataArray: Uint8Array = new Uint8Array(bufferLength);
-        this.source.connect(analyser);
-
+        
+        // this.source.connect(analyser);
+        this.audioGainNode.connect(analyser);
+        
         setInterval(() => {
             analyser.getByteTimeDomainData(dataArray);
             let bufferMax: number = 0;
@@ -106,6 +114,11 @@ export class WebAudioAPI {
             }
             this.currentVolume = bufferMax;
         }, 1000.0 / (1.0 * this.monitorRate));
+    }
+
+    setGain(gain: number) {
+        console.log('setting gain to : '+gain);
+        this.audioGainNode.gain.value = gain;
     }
 
     startRecording() {

@@ -208,10 +208,19 @@ interface AudioNode {
     disconnect(destination: AudioNode): void;
 }
 
+interface Gain {
+    value: number;
+}
+
+interface AudioGainNode extends AudioNode {
+    gain: Gain;
+}
+
 interface AudioContext {
     suspend(): Promise<void>;
     resume(): Promise<void>;
     close(): Promise<void>;
+    createGain(): AudioGainNode;
 }
 
 interface webkitAudioContext extends AudioContext {

@@ -34,15 +34,12 @@ export class Utils {
     }
 
     num2str(num: number, nDecimals: number) {
-        if (num === -Infinity) {
-            return "-Inf";
-        }
         let floorNum: number = Math.floor(num),
-            frac = num - floorNum,
-            pow10 = Math.pow(10, nDecimals),
-            wholeFrac = Math.round(frac * pow10),
-            fracLen = wholeFrac.toString().length,
-            leadingZeros = Array(nDecimals - fracLen + 1).join('0');
+            frac: number = num - floorNum,
+            pow10: number = Math.pow(10, nDecimals),
+            wholeFrac: number = Math.round(frac * pow10),
+            fracLen: number = wholeFrac.toString().length,
+            leadingZeros: string = Array(nDecimals - fracLen + 1).join('0');
         return floorNum.toString() + '.' + leadingZeros + wholeFrac.toString();
     }
 }

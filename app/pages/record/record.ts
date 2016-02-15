@@ -21,7 +21,7 @@ export class RecordPage {
     constructor(private webAudioAPI: WebAudioAPI, private platform: Platform, private utils: Utils) {
         console.log('constructor():RecordPage');
         this.gain = 100;
-        this.dB = this.utils.num2str(this.utils.ratio2dB(this.gain/100.0), 2);
+        this.dB = '0.00 dB';
         this.sliderValue = 100;
         this.notYetStarted = true;
         this.recordingTime = "00:00:00:00";
@@ -36,7 +36,14 @@ export class RecordPage {
 
     onSliderChange($event) {
         this.gain = $event.target.value;
-        this.dB = this.utils.num2str(this.utils.ratio2dB(this.gain/100.0), 2);
+        let factor: number = this.gain/100.0;
+        if (factor === 0) {
+            this.dB = 'Muted'
+        }
+        else {
+            this.dB = this.utils.num2str(this.utils.ratio2dB(factor), 2)+' dB';        
+        }
+        this.webAudioAPI.setGain(factor);
     }
 
     isRecording() {

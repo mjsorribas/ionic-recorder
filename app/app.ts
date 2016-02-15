@@ -14,7 +14,6 @@ import {WebAudioAPI} from './providers/web-audio-api';
     }
 })
 class MyApp {
-    // make HelloIonicPage the root (or first) page
     private rootPage: Type = TabsPage;
 
     constructor(private app: IonicApp, private platform: Platform) {
