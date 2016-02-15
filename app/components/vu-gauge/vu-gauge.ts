@@ -89,7 +89,7 @@ export class VuGauge {
                     let fill: string;
                     let strokeWidth: string;
 
-                    if (this.min + this.valueStep * i <= this.value) {
+                    if (this.min + this.valueStep * i < this.value) {
                         fill = this.hsv2rgb(120.0 - i * this.hStep, 1.0, 1.0);
                     }
                     else {

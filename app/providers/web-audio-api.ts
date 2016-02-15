@@ -83,9 +83,9 @@ export class WebAudioAPI {
 
     monitorStream(stream: MediaStream) {
         this.source = this.audioContext.createMediaStreamSource(stream);
-        
-        this.source.connect(this.audioGainNode);
-        this.audioGainNode.connect(this.audioContext.destination);
+                
+        // this next line repeats microphone input to speaker output
+        // this.audioGainNode.connect(this.audioContext.destination);
         
         let analyser: AnalyserNode = this.audioContext.createAnalyser();
         analyser.fftSize = 2048;
@@ -93,6 +93,7 @@ export class WebAudioAPI {
         let dataArray: Uint8Array = new Uint8Array(bufferLength);
         
         // this.source.connect(analyser);
+        this.source.connect(this.audioGainNode);
         this.audioGainNode.connect(analyser);
         
         setInterval(() => {
@@ -117,7 +118,7 @@ export class WebAudioAPI {
     }
 
     setGain(gain: number) {
-        console.log('setting gain to : '+gain);
+        // console.log('setting gain to : '+gain);
         this.audioGainNode.gain.value = gain;
     }
 
