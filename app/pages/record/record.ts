@@ -2,7 +2,7 @@ import {Page, Modal, Alert, NavController, Platform} from 'ionic-framework/ionic
 import {LibraryPage} from '../library/library';
 import {VuGauge} from '../../components/vu-gauge/vu-gauge';
 import {WebAudioAPI} from '../../providers/web-audio-api';
-
+import {Utils} from '../../providers/utils';
 
 @Page({
     templateUrl: 'build/pages/record/record.html',
@@ -16,12 +16,13 @@ export class RecordPage {
     private stopButtonIcon: string;
     private stopButtonDisabled: boolean;
     private gain: number;
-
-
-    constructor(private webAudioAPI: WebAudioAPI, private platform: Platform) {
+    private dB: string;
+    
+    constructor(private webAudioAPI: WebAudioAPI, private platform: Platform, private utils: Utils) {
         console.log('constructor():RecordPage');
-        this.gain = 29;
-        this.sliderValue = 33;
+        this.gain = 100;
+        this.dB = this.utils.num2str(this.utils.ratio2dB(this.gain/100.0), 2);
+        this.sliderValue = 100;
         this.notYetStarted = true;
         this.recordingTime = "00:00:00:00";
         this.recordButtonIcon = 'mic';
@@ -34,7 +35,8 @@ export class RecordPage {
     }
 
     onSliderChange($event) {
-        this.gain = 1.0 * $event.target.value;
+        this.gain = $event.target.value;
+        this.dB = this.utils.num2str(this.utils.ratio2dB(this.gain/100.0), 2);
     }
 
     isRecording() {

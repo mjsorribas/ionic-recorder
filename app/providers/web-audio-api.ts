@@ -1,6 +1,8 @@
 import {Injectable} from 'angular2/core';
 
 
+// Inject class WebAudioAPI into app to use as singleton,
+// via @App({providers: [WebAudioAPI]}
 @Injectable()
 export class WebAudioAPI {
     private audioContext: AudioContext;

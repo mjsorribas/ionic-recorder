@@ -1,5 +1,4 @@
 import {IonicApp, Page, Modal, Alert, NavController, Platform} from 'ionic-framework/ionic';
-import {RecordPage} from '../record/record';
 import {LibraryFilterPage} from '../library-filter/library-filter';
 
 

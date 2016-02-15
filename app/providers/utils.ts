@@ -1,12 +1,12 @@
 import {Injectable} from 'angular2/core';
 
 @Injectable()
-export class HSV {
+export class Utils {
     constructor() {
         console.log('constructor(): HSV');
     }
-    
-    toRGB(h, s, v) {
+
+    hsv2rgb(h: number, s: number, v: number) {
         var r, g, b, i, f, p, q, t;
 
         h = h / 60.0;
@@ -26,6 +26,23 @@ export class HSV {
         }
 
         return ['rgb(', Math.floor(r * 255.0), ',', Math.floor(g * 255.0), ',',
-                Math.floor(b * 255.0), ')'].join('');
+            Math.floor(b * 255.0), ')'].join('');
+    }
+
+    ratio2dB(ratio: number) {
+        return 10.0 * Math.log10(ratio);
+    }
+
+    num2str(num: number, nDecimals: number) {
+        if (num === -Infinity) {
+            return "-Inf";
+        }
+        let floorNum: number = Math.floor(num),
+            frac = num - floorNum,
+            pow10 = Math.pow(10, nDecimals),
+            wholeFrac = Math.round(frac * pow10),
+            fracLen = wholeFrac.toString().length,
+            leadingZeros = Array(nDecimals - fracLen + 1).join('0');
+        return floorNum.toString() + '.' + leadingZeros + wholeFrac.toString();
     }
 }
