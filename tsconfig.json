@@ -1,23 +1,23 @@
 {
-  "compilerOptions": {
-    "target": "ES5",
-    "module": "commonjs",
-    "noEmitOnError": false,
-    "rootDir": ".",
-    "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
-    "sourceMap": false,
-    "sourceRoot": "",
-    "inlineSourceMap": false,
-    "inlineSources": false
-  },
-  "files": [
-    "app/app.ts",
-    "typings/webaudioapi/waa.d.ts",
-    "typings/webrtc/MediaStream.d.ts"
-  ],
-  "exclude": [
-    "node_modules"
-  ],
-  "compileOnSave": false
+    "compilerOptions": {
+        "target": "ES5",
+        "module": "commonjs",
+        "noEmitOnError": false,
+        "rootDir": ".",
+        "emitDecoratorMetadata": true,
+        "experimentalDecorators": true,
+        "sourceMap": false,
+        "sourceRoot": "",
+        "inlineSourceMap": false,
+        "inlineSources": false
+    },
+    "files": [
+        "typings/app/app.d.ts",
+        "typings/webaudioapi/waa.d.ts",
+        "typings/webrtc/MediaStream.d.ts"
+    ],
+    "exclude": [
+        "node_modules"
+    ],
+    "compileOnSave": false
 }

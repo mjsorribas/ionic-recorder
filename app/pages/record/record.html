@@ -9,7 +9,7 @@
     <p class="item-label">Mic Volume: <span *ngIf="webAudioAPI.maxVolume > 1">{{webAudioAPI.nMaxPeaks}} peaks at max</span></p>
     <vu-gauge bgcolor="#fff" height="2.5em" nbars="55" min="0" max="128" rate="20" [value]="webAudioAPI.currentVolume"></vu-gauge>
     <p class="item-label">Gain: {{gain}}% ({{dB}})</p>
-    <input type="range" min="0" max="200" [value]="sliderValue" (input)="onSliderChange($event)" (touchstart)="onSliderDrag($event)"(mousedown)="onSliderDrag($event)">
+    <input type="range" min="0" max="200" [value]="sliderValue" (input)="onSliderChange($event)" (touchstart)="onSliderDrag($event)" (mousedown)="onSliderDrag($event)">
     <div class="recording-time">{{recordingTime}}</div>
     <div class="record-upload-buttons">
         <button logo-red (click)="toggleRecord()">

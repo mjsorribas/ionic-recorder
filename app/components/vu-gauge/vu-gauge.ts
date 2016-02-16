@@ -2,13 +2,6 @@ import {Component, Input, ChangeDetectionStrategy, ChangeDetectorRef, OnChanges}
 import {Utils} from '../../providers/utils';
 
 
-interface LEDRect {
-    x: string;
-    fill: string;
-    strokeWidth: string;
-}
-
-
 /**
  * @name VuGauge
  * @description
@@ -45,10 +38,9 @@ export class VuGauge {
     @Input() private rate: number;
     private hsv2rgb: (h: number, s: number, v: number) => string;
     private ledWidth: string;
-    private ledRects: Array<LEDRect>;
+    private ledRects: Array<{x: string, fill: string, strokeWidth: string}>;
     private hStep: number;
     private valueStep: number;
-
     private maxValue: number;
     private maxValueIndex: number;
 
