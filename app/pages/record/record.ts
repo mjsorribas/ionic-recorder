@@ -4,6 +4,7 @@ import {VuGauge} from '../../components/vu-gauge/vu-gauge';
 import {WebAudioAPI} from '../../providers/web-audio-api';
 import {Utils} from '../../providers/utils';
 
+
 @Page({
     templateUrl: 'build/pages/record/record.html',
     directives: [VuGauge]

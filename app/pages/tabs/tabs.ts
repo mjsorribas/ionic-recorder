@@ -1,7 +1,7 @@
-import {Page, IonicApp} from 'ionic-framework/ionic';
+import {Page} from 'ionic-framework/ionic';
+import {Type} from 'angular2/core';
 import {RecordPage} from '../record/record';
 import {LibraryPage} from '../library/library';
-import {Type} from 'angular2/core';
 
 
 @Page({
@@ -11,7 +11,7 @@ export class TabsPage {
     private tab1Root: Type = RecordPage;
     private tab2Root: Type = LibraryPage;
 
-    constructor(private app: IonicApp) {
+    constructor() {
         console.log('constructor():TabsPage');
         this.tab1Root = RecordPage;
         this.tab2Root = LibraryPage;
