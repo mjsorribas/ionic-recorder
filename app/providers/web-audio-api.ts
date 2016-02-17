@@ -51,9 +51,11 @@ export class WebAudioAPI {
         this.nMaxPeaks = 0;
 
         if (navigator.mediaDevices) {
+            console.log('newer audio init');
             this.newerAudioInit();
         }
         else {
+            console.log('older audio init');
             this.olderAudioInit();
         }
     }
