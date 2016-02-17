@@ -1,5 +1,4 @@
 import {Component, Input, ChangeDetectionStrategy, ChangeDetectorRef, OnChanges} from 'angular2/core';
-import {Utils} from '../../providers/utils';
 
 
 /**
@@ -36,7 +35,6 @@ export class VuGauge {
     @Input() private max: number;
     @Input() private value: number;
     @Input() private rate: number;
-    private hsv2rgb: (h: number, s: number, v: number) => string;
     private ledWidth: string;
     private ledRects: Array<{x: string, fill: string, strokeWidth: string}>;
     private hStep: number;
@@ -44,9 +42,8 @@ export class VuGauge {
     private maxValue: number;
     private maxValueIndex: number;
 
-    constructor(private utils: Utils, private ref: ChangeDetectorRef) {
+    constructor(private ref: ChangeDetectorRef) {
         console.log('constructor():VuGauge');
-        this.hsv2rgb = utils.hsv2rgb;
         this.ledRects = [];
         this.maxValue = 0;
         this.maxValueIndex = 0;
@@ -67,7 +64,7 @@ export class VuGauge {
         for (let i: number = 0; i < this.nbars; i++) {
             this.ledRects.push({
                 x: (i * xStep) + '%',
-                fill: this.hsv2rgb(120.0 - i * this.hStep, 1.0, 0.3),
+                fill: ['hsl(', 120.0 - i * this.hStep, ', 100%, 15%)'].join(''),
                 strokeWidth: "0"
             });
         }
@@ -82,10 +79,10 @@ export class VuGauge {
                     let strokeWidth: string;
 
                     if (this.min + this.valueStep * i < this.value) {
-                        fill = this.hsv2rgb(120.0 - i * this.hStep, 1.0, 1.0);
+                        fill = ['hsl(', 120.0 - i * this.hStep, ', 100%, 50%)'].join('');
                     }
                     else {
-                        fill = this.hsv2rgb(120.0 - i * this.hStep, 1.0, 0.3);
+                        fill = ['hsl(', 120.0 - i * this.hStep, ', 100%, 15%)'].join('');
                     }
                     this.ledRects[i].fill = fill;
                     this.ledRects[i].strokeWidth = "0";
